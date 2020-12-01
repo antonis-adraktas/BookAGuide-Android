@@ -18,4 +18,5 @@
     <string name="error_invalid_password">Password too short or does not match</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+    <string name="selectDate">Select a date</string>
 </resources>

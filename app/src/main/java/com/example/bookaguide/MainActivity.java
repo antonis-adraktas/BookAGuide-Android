@@ -12,7 +12,13 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class MainActivity extends AppCompatActivity {
-    ViewPager2 viewPager;
+
+    public static final String LOGAPP="BookAGuide";
+
+    private ViewPager2 viewPager;
+    private String dateSelected;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,4 +53,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 }
+

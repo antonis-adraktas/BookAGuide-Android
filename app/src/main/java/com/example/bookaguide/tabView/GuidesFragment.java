@@ -15,6 +15,7 @@ public class GuidesFragment extends Fragment {
 //    private static final String ARG_COUNT = "param1";
 //    private Integer counter;
 
+
     public GuidesFragment() {
     }
 
@@ -36,6 +37,7 @@ public class GuidesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.guides_layout,container,false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

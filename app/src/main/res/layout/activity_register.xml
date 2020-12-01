@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/background_login_min"
+    android:background="@drawable/acropolis_login"
     tools:context=".RegisterActivity"
     android:gravity="top">
 
@@ -18,18 +18,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/purple_500">
+        app:boxBackgroundColor="@color/teal_700">
 
         <AutoCompleteTextView
             android:id="@+id/register_username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="68dp"
+            android:completionHintView="@color/white"
             android:hint="@string/prompt_username"
             android:imeOptions="actionNext"
             android:inputType="textNoSuggestions"
             android:maxLines="1"
             android:textColor="@color/white"
-            android:textColorHint="@color/white"
             android:textIsSelectable="false"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -40,12 +40,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/purple_500">
+        app:boxBackgroundColor="@color/teal_700">
 
         <AutoCompleteTextView
             android:id="@+id/register_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="76dp"
             android:hint="@string/prompt_email"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
@@ -62,13 +62,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/white"
-        >
+        app:boxBackgroundColor="@color/teal_700">
 
         <EditText
             android:id="@+id/register_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/purple_500"
+            android:layout_height="65dp"
             android:hint="@string/prompt_password"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
@@ -84,13 +83,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColorHint="@color/white"
-        >
+        app:boxBackgroundColor="@color/teal_700">
 
         <EditText
             android:id="@+id/register_confirm_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/purple_500"
+            android:layout_height="match_parent"
             android:hint="@string/prompt_password_again"
             android:imeActionId="@integer/register_form_finished"
             android:imeActionLabel="@string/action_sign_up"
@@ -106,15 +104,15 @@
 
     <Button
         android:id="@+id/register_sign_up_button"
-        style="?android:textAppearanceMedium"
-        android:background="@color/white"
-        android:textColor="@color/white"
-        android:onClick="signUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@color/teal_700"
+        android:onClick="signUp"
         android:text="@string/action_sign_up"
-        android:textStyle="bold"/>
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:backgroundTint="@color/teal_700" />
 
 
 

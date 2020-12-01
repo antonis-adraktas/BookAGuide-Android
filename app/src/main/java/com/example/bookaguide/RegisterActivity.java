@@ -26,7 +26,6 @@ public class RegisterActivity extends AppCompatActivity {
     public static final String DISPLAY_NAME_KEY = "username";
     public static final String LOGAPP="BookAGuide";
 
-    // TODO: Add member variables here:
     // UI references.
     private AutoCompleteTextView mEmailView;
     private AutoCompleteTextView mUsernameView;
@@ -59,7 +58,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: Get hold of an instance of FirebaseAuth
         auth= FirebaseAuth.getInstance();
 
     }
@@ -105,7 +103,6 @@ public class RegisterActivity extends AppCompatActivity {
             // form field with an error.
             focusView.requestFocus();
         } else {
-            // TODO: Call create FirebaseUser() here
             createFirebaseUser();
         }
     }
@@ -116,12 +113,10 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Add own logic to check for a valid password (minimum 6 characters)
         String confirmPassword=mConfirmPasswordView.getText().toString();
         return confirmPassword.equals(password) && password.length()>5;
     }
 
-    // TODO: Create a Firebase user
     private void createFirebaseUser(){
         String email=mEmailView.getText().toString();
         String password=mPasswordView.getText().toString();
@@ -134,7 +129,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.d(LOGAPP,"user creation failed!");
                     showErrorDialog("Registration attempt failed");
                 } else{
-//                    saveDisplayName();
                     Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
                     finish();
                     startActivity(intent);
@@ -143,32 +137,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    // TODO: Save the display name to Shared Preferences
-//    private void saveDisplayName() {
-////        String displayName=mUsernameView.getText().toString();
-////        SharedPreferences prefs=getSharedPreferences(CHAT_PREFS,0);
-////        prefs.edit().putString(DISPLAY_NAME_KEY,displayName).apply();
-//
-//        FirebaseUser user = auth.getCurrentUser();
-//        String displayName = mUsernameView.getText().toString();
-//
-//        if (user != null) {
-//            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                    .setDisplayName(displayName)
-//                    .build();
-//
-//            user.updateProfile(profileUpdates)
-//                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-//                                Log.d(LOGAPP, "User name updated.");
-//                            }
-//                        }
-//                    });
-//        }
-//    }
-    // TODO: Create an alert dialog to show in case registration failed
+
+
     private void showErrorDialog(String message){
         new AlertDialog.Builder(this)
                 .setTitle("Oops")
@@ -176,5 +146,12 @@ public class RegisterActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok,null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+        finish();
+        startActivity(intent);
     }
 }

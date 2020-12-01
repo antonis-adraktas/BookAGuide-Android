@@ -19,19 +19,29 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 viewPager=findViewById(R.id.viewpager);
         viewPager.setAdapter(pageAdapter);
         TabLayout tabs=findViewById(R.id.tabs);
-        new TabLayoutMediator(tabs, viewPager,
-                new TabLayoutMediator.TabConfigurationStrategy() {
-                    @Override public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                        if (position == 0) {
-                            tab.setText(R.string.routes_tab);
-                        } else if (position == 1) {
-                            tab.setText(R.string.guides_tab);
-                        } else {
-                            tab.setText(R.string.drivers_tab);
-                        }
-                    }
-                }).attach();
-
+        TabLayoutMediator.TabConfigurationStrategy strategy= new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                if (position == 0) {
+                    tab.setText(R.string.routes_tab);
+                } else if (position == 1) {
+                    tab.setText(R.string.guides_tab);
+                } else {
+                    tab.setText(R.string.drivers_tab);
+                }
+            }
+        };
+        new TabLayoutMediator(tabs, viewPager,strategy).attach();
 
     }
+
+//    public void onBackPressed() {
+//        if (viewPager.getCurrentItem()!=0){
+//            viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
+//        }else{
+//            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+//            finish();
+//            startActivity(intent);
+//        }
+//    }
 }

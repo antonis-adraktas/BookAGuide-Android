@@ -1,9 +1,12 @@
 package com.example.bookaguide.tabView;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,9 +14,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.bookaguide.R;
 
+import java.util.Calendar;
+
 public class GuidesFragment extends Fragment {
 //    private static final String ARG_COUNT = "param1";
 //    private Integer counter;
+    private String selectedDate;
+    private TextView selectDateTextView;
 
 
     public GuidesFragment() {
@@ -35,7 +42,29 @@ public class GuidesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.guides_layout,container,false);
+        View view= inflater.inflate(R.layout.guides_layout,container,false);
+        selectDateTextView=view.findViewById(R.id.selectDate);
+        selectDateTextView.setOnClickListener(new ClickListener());
+        return view;
+    }
+    private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(final DatePicker view, final int year, final int month, final int dayOfMonth) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            selectedDate=dayOfMonth+"-"+(month+1)+"-"+year;
+            selectDateTextView.setText(selectedDate);
+        }
+    };
+    private class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(final View v) {
+            DatePickerFragment dpf = new DatePickerFragment().newInstance();
+            dpf.setCallBack(onDate);
+            dpf.show(getFragmentManager().beginTransaction(),"DatePickerFragment");
+        }
     }
 
 

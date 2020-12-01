@@ -1,4 +1,4 @@
-package com.example.bookaguide;
+package com.example.bookaguide.tabView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,15 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class DriversFragment extends Fragment {
+import com.example.bookaguide.R;
+
+public class GuidesFragment extends Fragment {
 //    private static final String ARG_COUNT = "param1";
 //    private Integer counter;
 
-    public DriversFragment() {
+    public GuidesFragment() {
     }
 
-    public static DriversFragment newInstance() {
-        DriversFragment fragment = new DriversFragment();
+    public static GuidesFragment newInstance() {
+        GuidesFragment fragment = new GuidesFragment();
         Bundle args = new Bundle();
 //        args.putInt(ARG_COUNT, counter);
         fragment.setArguments(args);
@@ -32,7 +34,7 @@ public class DriversFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.drivers_layout,container,false);
+        return inflater.inflate(R.layout.guides_layout,container,false);
     }
 
     @Override

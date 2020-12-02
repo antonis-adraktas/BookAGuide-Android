@@ -43,7 +43,7 @@ public class GuidesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.guides_layout,container,false);
-        selectDateTextView=view.findViewById(R.id.selectDate);
+        selectDateTextView=view.findViewById(R.id.selectDateGuides);
         selectDateTextView.setOnClickListener(new ClickListener());
         return view;
     }

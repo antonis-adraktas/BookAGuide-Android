@@ -37,6 +37,9 @@
         <activity android:name="com.antonis.bookaguide.MainActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".CustomRouteMap"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

@@ -1,10 +1,12 @@
 package com.antonis.bookaguide.tabView;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.antonis.bookaguide.CustomRouteMap;
 import com.antonis.bookaguide.R;
 
 import java.util.Calendar;
@@ -20,6 +23,7 @@ public class RoutesFragment extends Fragment {
 
     private String selectedDate;
     private TextView selectDateTextView;
+    private Button customButton;
 
     public RoutesFragment() {
     }
@@ -42,6 +46,14 @@ public class RoutesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.routes_layout,container,false);
         selectDateTextView=view.findViewById(R.id.selectDateRoutes);
+        customButton=view.findViewById(R.id.button);
+        customButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), CustomRouteMap.class);
+                startActivity(intent);
+            }
+        });
         selectDateTextView.setOnClickListener(new ClickListener());
         return view;
     }

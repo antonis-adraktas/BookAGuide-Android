@@ -38,7 +38,12 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".CustomRouteMap"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:label="MapRoutes">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

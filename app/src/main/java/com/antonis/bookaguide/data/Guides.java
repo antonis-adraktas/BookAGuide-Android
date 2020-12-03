@@ -1,4 +1,4 @@
-package com.example.bookaguide.data;
+package com.antonis.bookaguide.data;
 
 import java.util.ArrayList;
 

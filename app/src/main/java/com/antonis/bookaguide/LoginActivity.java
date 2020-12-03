@@ -1,4 +1,4 @@
-package com.example.bookaguide;
+package com.antonis.bookaguide;
 
 import android.app.AlertDialog;
 import android.content.Intent;

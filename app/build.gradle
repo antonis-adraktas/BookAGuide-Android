@@ -2,19 +2,26 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
 }
+Properties properties = new Properties()
+if (rootProject.file("local.properties").exists()) {
+    properties.load(rootProject.file("local.properties").newDataInputStream())
+}
+def mapsApiKey = properties.getProperty("MAPS_API_KEY", "")
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.bookaguide"
+        applicationId "com.antonis.bookaguide"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//        Read the API key from local.properties into R.string.maps_api_key
+        resValue "string", "maps_api_key", mapsApiKey
     }
 
     buildTypes {

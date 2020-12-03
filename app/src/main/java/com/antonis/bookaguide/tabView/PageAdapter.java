@@ -1,4 +1,4 @@
-package com.example.bookaguide.tabView;
+package com.antonis.bookaguide.tabView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

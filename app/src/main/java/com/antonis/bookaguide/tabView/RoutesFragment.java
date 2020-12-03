@@ -1,4 +1,4 @@
-package com.example.bookaguide.tabView;
+package com.antonis.bookaguide.tabView;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -12,22 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.bookaguide.R;
+import com.antonis.bookaguide.R;
 
 import java.util.Calendar;
 
-public class GuidesFragment extends Fragment {
-//    private static final String ARG_COUNT = "param1";
-//    private Integer counter;
+public class RoutesFragment extends Fragment {
+
     private String selectedDate;
     private TextView selectDateTextView;
 
-
-    public GuidesFragment() {
+    public RoutesFragment() {
     }
 
-    public static GuidesFragment newInstance() {
-        GuidesFragment fragment = new GuidesFragment();
+    public static RoutesFragment newInstance() {
+        RoutesFragment fragment = new RoutesFragment();
         Bundle args = new Bundle();
 //        args.putInt(ARG_COUNT, counter);
         fragment.setArguments(args);
@@ -42,8 +40,8 @@ public class GuidesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.guides_layout,container,false);
-        selectDateTextView=view.findViewById(R.id.selectDateGuides);
+        View view =inflater.inflate(R.layout.routes_layout,container,false);
+        selectDateTextView=view.findViewById(R.id.selectDateRoutes);
         selectDateTextView.setOnClickListener(new ClickListener());
         return view;
     }
@@ -66,7 +64,6 @@ public class GuidesFragment extends Fragment {
             dpf.show(getFragmentManager().beginTransaction(),"DatePickerFragment");
         }
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

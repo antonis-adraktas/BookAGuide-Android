@@ -1,4 +1,4 @@
-package com.example.bookaguide.tabView;
+package com.antonis.bookaguide.tabView;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

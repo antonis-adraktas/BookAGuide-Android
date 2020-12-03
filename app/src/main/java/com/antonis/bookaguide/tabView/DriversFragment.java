@@ -1,4 +1,4 @@
-package com.example.bookaguide.tabView;
+package com.antonis.bookaguide.tabView;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -12,20 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.bookaguide.R;
+import com.antonis.bookaguide.R;
 
 import java.util.Calendar;
 
-public class RoutesFragment extends Fragment {
-
+public class DriversFragment extends Fragment {
     private String selectedDate;
     private TextView selectDateTextView;
 
-    public RoutesFragment() {
+    public DriversFragment() {
     }
 
-    public static RoutesFragment newInstance() {
-        RoutesFragment fragment = new RoutesFragment();
+    public static DriversFragment newInstance() {
+        DriversFragment fragment = new DriversFragment();
         Bundle args = new Bundle();
 //        args.putInt(ARG_COUNT, counter);
         fragment.setArguments(args);
@@ -40,8 +39,8 @@ public class RoutesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.routes_layout,container,false);
-        selectDateTextView=view.findViewById(R.id.selectDateRoutes);
+        View view=inflater.inflate(R.layout.drivers_layout,container,false);
+        selectDateTextView=view.findViewById(R.id.selectDateDrivers);
         selectDateTextView.setOnClickListener(new ClickListener());
         return view;
     }

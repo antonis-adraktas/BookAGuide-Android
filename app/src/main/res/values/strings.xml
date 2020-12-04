@@ -21,4 +21,6 @@
     <string name="selectDate">Select a date</string>
     <string name="customButtonText">Set a custom route here</string>
     <string name="addMarkerQuestion">Are you sure you want to add this place to your custom route?</string>
+    <string name="markerLimit">You can place up to 8 places to be visited in your tour. Click ok and then finish to complete your selection as is.
+    Click cancel to clear your current selection and start over again.</string>
 </resources>

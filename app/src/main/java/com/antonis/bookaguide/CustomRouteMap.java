@@ -136,7 +136,7 @@ public class CustomRouteMap extends AppCompatActivity
                         .show();
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(myLocation.getLatitude(),
-                                myLocation.getLongitude()), 12));
+                                myLocation.getLongitude()), 14));
                 return false;
             }
         });
@@ -217,6 +217,13 @@ public class CustomRouteMap extends AppCompatActivity
                 })
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (locationManager!=null) locationManager.removeUpdates(locationListener);
     }
 
 }

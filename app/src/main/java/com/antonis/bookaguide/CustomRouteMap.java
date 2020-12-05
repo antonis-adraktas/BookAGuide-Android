@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,7 @@ public class CustomRouteMap extends AppCompatActivity
     private Button infoButton;
     LocationManager locationManager;
     private Location myLocation;
+    LocationListener locationListener;
 
 
     // [START_EXCLUDE]
@@ -112,7 +114,12 @@ public class CustomRouteMap extends AppCompatActivity
 //        googleMap.setLatLngBoundsForCameraTarget(atticaBounds);
 //        googleMap.setMinZoomPreference(11);
 
-
+        locationListener= new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                myLocation=location;
+            }
+        };
 
         googleMap.setOnMyLocationClickListener(new GoogleMap.OnMyLocationClickListener() {
             @Override

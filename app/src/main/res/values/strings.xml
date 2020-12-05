@@ -2,7 +2,7 @@
     <string name="app_name">BookAGuide</string>
     <string name="routes_tab">Routes</string>
     <string name="guides_tab">Guides</string>
-    <string name="drivers_tab">Drivers</string>
+    <string name="transport">Transport</string>
     <string name="routes_text">Here there will be a list of routes</string>
     <string name="guides_text">A list of guides will be here</string>
     <string name="drivers_text">A list of drivers will be here</string>

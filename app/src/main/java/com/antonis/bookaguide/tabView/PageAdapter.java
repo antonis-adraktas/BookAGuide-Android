@@ -30,7 +30,7 @@ public class PageAdapter extends FragmentStateAdapter {
             case 1: //Page number 2
                 return GuidesFragment.newInstance();
             case 2: //Page number 3
-                return DriversFragment.newInstance();
+                return CarsFragment.newInstance();
             default:
                 return null;
         }

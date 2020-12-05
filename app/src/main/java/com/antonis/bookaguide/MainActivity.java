@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (position == 1) {
                     tab.setText(R.string.guides_tab);
                 } else {
-                    tab.setText(R.string.drivers_tab);
+                    tab.setText(R.string.transport);
                 }
             }
         };

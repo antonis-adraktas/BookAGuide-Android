@@ -16,15 +16,15 @@ import com.antonis.bookaguide.R;
 
 import java.util.Calendar;
 
-public class DriversFragment extends Fragment {
+public class CarsFragment extends Fragment {
     private String selectedDate;
     private TextView selectDateTextView;
 
-    public DriversFragment() {
+    public CarsFragment() {
     }
 
-    public static DriversFragment newInstance() {
-        DriversFragment fragment = new DriversFragment();
+    public static CarsFragment newInstance() {
+        CarsFragment fragment = new CarsFragment();
         Bundle args = new Bundle();
 //        args.putInt(ARG_COUNT, counter);
         fragment.setArguments(args);

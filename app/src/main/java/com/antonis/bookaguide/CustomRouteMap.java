@@ -224,6 +224,7 @@ public class CustomRouteMap extends AppCompatActivity
         super.onPause();
 
         if (locationManager!=null) locationManager.removeUpdates(locationListener);
+        Log.d(MainActivity.LOGAPP,"locationlistener remove updates when onPause");
     }
 
 }

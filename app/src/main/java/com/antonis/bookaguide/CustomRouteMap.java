@@ -2,8 +2,11 @@ package com.antonis.bookaguide;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +24,8 @@ public class CustomRouteMap extends AppCompatActivity
         implements OnMapReadyCallback {
     private int numMarker=0;
     private ArrayList<Marker> markerList;
+    private Button finishButton;
+    private Button infoButton;
     // [START_EXCLUDE]
     // [START maps_marker_get_map_async]
     @Override
@@ -33,6 +38,20 @@ public class CustomRouteMap extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        finishButton=findViewById(R.id.finish);
+        infoButton=findViewById(R.id.info);
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishAction();
+            }
+        });
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                provideInfo(CustomRouteMap.this.getString(R.string.provideInfoMap));
+            }
+        });
     }
 
 
@@ -96,6 +115,19 @@ public class CustomRouteMap extends AppCompatActivity
                         markerList.clear();
                     }
                 })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
+
+    private void finishAction(){
+        Intent intent=new Intent(CustomRouteMap.this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void provideInfo(String message){
+        new AlertDialog.Builder(CustomRouteMap.this)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok,null)
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
     }

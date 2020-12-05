@@ -6,13 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.antonis.bookaguide.MainActivity;
 import com.antonis.bookaguide.R;
+import com.antonis.bookaguide.listAdapters.GuidesAdapter;
 
 import java.util.Calendar;
 
@@ -21,6 +24,8 @@ public class GuidesFragment extends Fragment {
 //    private Integer counter;
     private String selectedDate;
     private TextView selectDateTextView;
+    private GuidesAdapter guidesAdapter;
+    private ListView guidesList;
 
 
     public GuidesFragment() {
@@ -45,6 +50,7 @@ public class GuidesFragment extends Fragment {
         View view= inflater.inflate(R.layout.guides_layout,container,false);
         selectDateTextView=view.findViewById(R.id.selectDateGuides);
         selectDateTextView.setOnClickListener(new ClickListener());
+        guidesList=view.findViewById(R.id.guidesList);
         return view;
     }
     private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
@@ -71,5 +77,18 @@ public class GuidesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity(), MainActivity.getDatabaseReference());
+        guidesList.setAdapter(guidesAdapter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        guidesAdapter.cleanup();
     }
 }

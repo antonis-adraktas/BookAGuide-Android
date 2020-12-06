@@ -13,16 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.antonis.bookaguide.MainActivity;
 import com.antonis.bookaguide.R;
 import com.antonis.bookaguide.listAdapters.GuidesAdapter;
 
 import java.util.Calendar;
 
 public class GuidesFragment extends Fragment {
-//    private static final String ARG_COUNT = "param1";
-//    private Integer counter;
-    private String selectedDate;
+
+    public static String selectedDate;
     private TextView selectDateTextView;
     private GuidesAdapter guidesAdapter;
     private ListView guidesList;
@@ -31,13 +29,17 @@ public class GuidesFragment extends Fragment {
     public GuidesFragment() {
     }
 
+//    public String getSelectedDate() {
+//        return selectedDate;
+//    }
+
     public static GuidesFragment newInstance() {
         GuidesFragment fragment = new GuidesFragment();
         Bundle args = new Bundle();
-//        args.putInt(ARG_COUNT, counter);
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,12 +79,21 @@ public class GuidesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity());
+        guidesList.setAdapter(guidesAdapter);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity(), MainActivity.getDatabaseReference());
+        guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity());
+        guidesList.setAdapter(guidesAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity());
         guidesList.setAdapter(guidesAdapter);
     }
 

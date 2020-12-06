@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.antonis.bookaguide.CustomRouteMap;
+import com.antonis.bookaguide.MainActivity;
 import com.antonis.bookaguide.R;
 
 import java.util.Calendar;
@@ -24,6 +25,7 @@ public class RoutesFragment extends Fragment {
     private String selectedDate;
     private TextView selectDateTextView;
     private Button customButton;
+    private Button sendGuidesButton;
 
     public RoutesFragment() {
     }
@@ -55,6 +57,13 @@ public class RoutesFragment extends Fragment {
             }
         });
         selectDateTextView.setOnClickListener(new ClickListener());
+        sendGuidesButton=view.findViewById(R.id.sendGuides);
+        sendGuidesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.sendGuides();
+            }
+        });
         return view;
     }
     private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {

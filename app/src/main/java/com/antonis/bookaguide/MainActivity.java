@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         new TabLayoutMediator(tabs, viewPager,strategy).attach();
-        sendGuides();
+//        sendGuides();
     }
 
     public void onBackPressed() {
@@ -64,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void sendGuides(){
+    public static void sendGuides(){
         Guides guide1=new Guides("Antonis Papadopoulos","English,French,German,Greek");
+        guide1.addBookedDate("8-12-2020");
         databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide1);
 
         Guides guide2=new Guides("Eleni Papantoniou","English,Italian,Greek");

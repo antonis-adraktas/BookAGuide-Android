@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,12 +14,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.antonis.bookaguide.R;
+import com.antonis.bookaguide.listAdapters.TransportAdapter;
 
 import java.util.Calendar;
 
 public class CarsFragment extends Fragment {
-    private String selectedDate;
+    public static String selectedDate;
     private TextView selectDateTextView;
+    private TransportAdapter transportAdapter;
+    private ListView transportList;
 
     public CarsFragment() {
     }
@@ -42,6 +46,7 @@ public class CarsFragment extends Fragment {
         View view=inflater.inflate(R.layout.drivers_layout,container,false);
         selectDateTextView=view.findViewById(R.id.selectDateDrivers);
         selectDateTextView.setOnClickListener(new ClickListener());
+        transportList=view.findViewById(R.id.transportList);
         return view;
     }
     private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
@@ -67,5 +72,25 @@ public class CarsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        transportAdapter=new TransportAdapter(CarsFragment.this.getActivity());
+        transportList.setAdapter(transportAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        transportAdapter=new TransportAdapter(CarsFragment.this.getActivity());
+        transportList.setAdapter(transportAdapter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        transportAdapter.cleanup();
     }
 }

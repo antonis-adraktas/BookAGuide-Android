@@ -27,4 +27,5 @@
     <string name="info">Info</string>
     <string name="provideInfoMap">Here you can place markers on the map to specify the places you want to visit with our guides.
     You can place up to 8 markers. The first marker will be the starting/meeting point with our guides/drivers. Click cancel t oreset your selections and start over</string>
+
 </resources>

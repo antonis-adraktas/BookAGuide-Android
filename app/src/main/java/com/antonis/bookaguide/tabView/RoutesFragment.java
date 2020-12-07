@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.antonis.bookaguide.CustomRouteMap;
 import com.antonis.bookaguide.R;
+import com.antonis.bookaguide.listAdapters.RoutesAdapter;
 
 import java.util.Calendar;
 
@@ -24,7 +26,9 @@ public class RoutesFragment extends Fragment {
     private String selectedDate;
     private TextView selectDateTextView;
     private Button customButton;
-    private Button sendGuidesButton;
+//    private Button sendGuidesButton;
+    private RoutesAdapter routeAdapter;
+    private ListView routeList;
 
     public RoutesFragment() {
     }
@@ -47,6 +51,7 @@ public class RoutesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.routes_layout,container,false);
         selectDateTextView=view.findViewById(R.id.selectDateRoutes);
+        routeList=view.findViewById(R.id.routesList);
         customButton=view.findViewById(R.id.button);
         customButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +61,7 @@ public class RoutesFragment extends Fragment {
             }
         });
         selectDateTextView.setOnClickListener(new ClickListener());
-        sendGuidesButton=view.findViewById(R.id.sendGuides);
+//        sendGuidesButton=view.findViewById(R.id.sendGuides);
 //        sendGuidesButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -88,5 +93,24 @@ public class RoutesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        routeAdapter=new RoutesAdapter(RoutesFragment.this.getActivity());
+        routeList.setAdapter(routeAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        routeAdapter=new RoutesAdapter(RoutesFragment.this.getActivity());
+        routeList.setAdapter(routeAdapter);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        routeAdapter.cleanup();
     }
 }

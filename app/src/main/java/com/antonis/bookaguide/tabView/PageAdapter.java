@@ -36,19 +36,4 @@ public class PageAdapter extends FragmentStateAdapter {
         }
     }
 
-
-
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//        switch (position){
-//            case 0: //Page number 1
-//                return R.string.routes_tab;
-//            case 1: //Page number 2
-//                return R.string.guides_tab;
-//            case 2: //Page number 3
-//                return R.string.drivers_tab;
-//            default:
-//                return null;
-//        }
-//    }
 }

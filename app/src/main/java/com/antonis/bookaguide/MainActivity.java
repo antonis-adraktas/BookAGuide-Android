@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private static DatabaseReference databaseReference;
     private static DatabaseReference dbGuidesChild;
     public static final String DBTRANSPORT="Transport";
+    public static final String DBROUTES="Routes";
 
 
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         new TabLayoutMediator(tabs, viewPager,strategy).attach();
-//        sendGuides();
+//        sendRoutes();
     }
 
     public void onBackPressed() {
@@ -61,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
             finish();
             startActivity(intent);
         }
+    }
+    public static DatabaseReference getDatabaseReference() {
+        return databaseReference;
+    }
+
+    public  static DatabaseReference getDbGuidesChild() {
+        return dbGuidesChild;
     }
 
 //    public static void sendGuides(){
@@ -89,13 +97,27 @@ public class MainActivity extends AppCompatActivity {
 //        Transport transport4=new Transport("On foot",10);
 //        databaseReference.child(DBTRANSPORT).push().setValue(transport4);
 //    }
+//    public static void sendRoutes() {
+//        Routes route1 = new Routes("Historical center classic", true, new LatLng(37.976595, 23.725942),new LatLng(37.975377, 23.736049),6);
+//        route1.addPlace("Monastiraki square");
+//        route1.addPlace("Ancient Agora");
+//        route1.addPlace("Thiseio");
+//        route1.addPlace("Parthenon");
+//        route1.addPlace("Acropolis museum");
+//        route1.addPlace("Stili Dios");
+//        route1.addPlace("Syntagma square");
+//        databaseReference.child(DBROUTES).push().setValue(route1);
+//
+//        Routes route2 = new Routes("Athens sea front", false, new LatLng(37.938635, 23.659739),new LatLng(37.812531, 23.781717),5);
+//        route2.addPlace("Mikrolimano");
+//        route2.addPlace("Niarxos foundation");
+//        route2.addPlace("Marina Floisbou");
+//        route2.addPlace("Glyfada");
+//        route2.addPlace("Bouliagmeni");
+//        databaseReference.child(DBROUTES).push().setValue(route2);
+//
+//    }
 
-    public static DatabaseReference getDatabaseReference() {
-        return databaseReference;
-    }
 
-    public  static DatabaseReference getDbGuidesChild() {
-        return dbGuidesChild;
-    }
 }
 

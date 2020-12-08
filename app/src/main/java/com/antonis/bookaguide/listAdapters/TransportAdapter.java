@@ -2,7 +2,6 @@ package com.antonis.bookaguide.listAdapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class TransportAdapter extends BaseAdapter {
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             snapShotList.add(snapshot);
             notifyDataSetChanged();
-            Log.d(MainActivity.LOGAPP, "notifyDataSetChanged called when onChildAdded");
+//            Log.d(MainActivity.LOGAPP, "notifyDataSetChanged called when onChildAdded from transport adapter");
         }
 
         @Override
@@ -59,7 +58,7 @@ public class TransportAdapter extends BaseAdapter {
         public void onChildRemoved(@NonNull DataSnapshot snapshot) {
             snapShotList.remove(snapshot);
             notifyDataSetChanged();
-            Log.d(MainActivity.LOGAPP, "notifyDataSetChanged called when onChildRemoved");
+//            Log.d(MainActivity.LOGAPP, "notifyDataSetChanged called when onChildRemoved from transport adapter");
         }
 
         @Override

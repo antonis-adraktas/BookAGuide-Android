@@ -2,6 +2,7 @@ package com.antonis.bookaguide;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String LOGAPP="BookAGuide";
 
-    private ViewPager2 viewPager;
+    private static ViewPager2 viewPager;
+    private Button reserve;
     private static DatabaseReference databaseReference;
     private static DatabaseReference dbGuidesChild;
     public static final String DBTRANSPORT="Transport";
@@ -63,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    public static ViewPager2 getViewPager() {
+        return viewPager;
+    }
+
     public static DatabaseReference getDatabaseReference() {
         return databaseReference;
     }

@@ -109,10 +109,10 @@ public class CustomRouteMap extends AppCompatActivity
                 new LatLng(38.036468, 23.904720)  // NE bounds
         );
 //        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(atticaBounds, 10));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atticaBounds.getCenter(), 11));
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atticaBounds.getCenter(), 11));
         enableMyLocation(googleMap);
-//        googleMap.setLatLngBoundsForCameraTarget(atticaBounds);
-//        googleMap.setMinZoomPreference(11);
+        googleMap.setLatLngBoundsForCameraTarget(atticaBounds);
+        googleMap.setMinZoomPreference(11);
 
         locationListener= new LocationListener() {
             @Override
@@ -142,10 +142,6 @@ public class CustomRouteMap extends AppCompatActivity
         });
 
         Log.d(MainActivity.LOGAPP,"My location is "+googleMap.isMyLocationEnabled());
-
-
-
-
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

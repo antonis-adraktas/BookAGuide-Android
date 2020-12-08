@@ -28,5 +28,6 @@
     <string name="provideInfoMap">Here you can place markers on the map to specify the places you want to visit with our guides.
     You can place up to 8 markers. The first marker will be the starting/meeting point with our guides/drivers. Click cancel to reset your selections and start over</string>
     <string name="guideSelection">You have successfully selected your guide. Please select a car and your route if not already done and send your reservation</string>
+    <string name="transportSelection">You have successfully selected your transport. Please select a car and your route if not already done and send your reservation</string>
 
 </resources>

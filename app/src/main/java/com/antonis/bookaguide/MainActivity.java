@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static ViewPager2 viewPager;
     private Button reserve;
+    public static String selectedDate;
     private static DatabaseReference databaseReference;
     private static DatabaseReference dbGuidesChild;
     public static final String DBTRANSPORT="Transport";

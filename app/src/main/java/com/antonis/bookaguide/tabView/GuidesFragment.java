@@ -1,16 +1,13 @@
 package com.antonis.bookaguide.tabView;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,12 +19,9 @@ import com.antonis.bookaguide.R;
 import com.antonis.bookaguide.data.Guides;
 import com.antonis.bookaguide.listAdapters.GuidesAdapter;
 
-import java.util.Calendar;
-
 public class GuidesFragment extends Fragment {
 
-    public static String selectedDate;
-    private TextView selectDateTextView;
+
     private GuidesAdapter guidesAdapter;
     private ListView guidesList;
     private Guides guideSelected;
@@ -47,9 +41,6 @@ public class GuidesFragment extends Fragment {
         return fragment;
     }
 
-    public static String getSelectedDate() {
-        return selectedDate;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,47 +51,27 @@ public class GuidesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.guides_layout,container,false);
-        selectDateTextView=view.findViewById(R.id.selectDateGuides);
-        selectDateTextView.setOnClickListener(new ClickListener());
         guidesList=view.findViewById(R.id.guidesList);
         guidesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (selectedDate==null){
+                if (MainActivity.getSelectedDate()==null){
                     noDateSelectedDialog();
                 }else{
                     guideSelected= (Guides) guidesList.getItemAtPosition(position);
-                    if (guideSelected.getDatesBooked()!=null &&guideSelected.getDatesBooked().contains(selectedDate)){
-                        guideBookedDialog(selectedDate);
+                    if (guideSelected.getDatesBooked()!=null &&guideSelected.getDatesBooked().contains(MainActivity.getSelectedDate())){
+                        guideBookedDialog(MainActivity.getSelectedDate());
                     }else{
                         Log.d(MainActivity.LOGAPP,guideSelected.toString());
                         Toast.makeText(GuidesFragment.this.getContext(),R.string.guideSelection,Toast.LENGTH_LONG).show();
-                        MainActivity.getViewPager().setCurrentItem(0);
+                        MainActivity.getViewPager().setCurrentItem(2);
                     }
                 }
             }
         });
         return view;
     }
-    private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(final DatePicker view, final int year, final int month, final int dayOfMonth) {
-            Calendar c = Calendar.getInstance();
-            c.set(Calendar.YEAR, year);
-            c.set(Calendar.MONTH, month);
-            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            selectedDate=dayOfMonth+"-"+(month+1)+"-"+year;
-            selectDateTextView.setText(selectedDate);
-        }
-    };
-    private class ClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(final View v) {
-            DatePickerFragment dpf = new DatePickerFragment().newInstance();
-            dpf.setCallBack(onDate);
-            dpf.show(getFragmentManager().beginTransaction(),"DatePickerFragment");
-        }
-    }
+
 
 
     @Override

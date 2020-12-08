@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import com.antonis.bookaguide.MainActivity;
 import com.antonis.bookaguide.R;
 import com.antonis.bookaguide.data.Guides;
-import com.antonis.bookaguide.tabView.GuidesFragment;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -108,7 +107,7 @@ public class GuidesAdapter extends BaseAdapter {
         if (guide.getDatesBooked()==null){
             isBooked=false;
         }else{
-            isBooked=guide.getDatesBooked().contains(GuidesFragment.selectedDate);
+            isBooked=guide.getDatesBooked().contains(MainActivity.getSelectedDate());
         }
 
         setGuideRowAppearance(isBooked,holder);

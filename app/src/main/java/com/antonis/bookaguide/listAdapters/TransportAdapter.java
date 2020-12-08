@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import com.antonis.bookaguide.MainActivity;
 import com.antonis.bookaguide.R;
 import com.antonis.bookaguide.data.Transport;
-import com.antonis.bookaguide.tabView.GuidesFragment;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -107,7 +106,7 @@ public class TransportAdapter extends BaseAdapter {
         if (transport.getDatesBooked()==null){
             isBooked=false;
         }else{
-            isBooked=transport.getDatesBooked().contains(GuidesFragment.selectedDate);
+            isBooked=transport.getDatesBooked().contains(MainActivity.getSelectedDate());
         }
 
         setGuideRowAppearance(isBooked,holder);

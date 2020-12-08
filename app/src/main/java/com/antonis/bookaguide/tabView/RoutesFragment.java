@@ -1,15 +1,12 @@
 package com.antonis.bookaguide.tabView;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +16,9 @@ import com.antonis.bookaguide.CustomRouteMap;
 import com.antonis.bookaguide.R;
 import com.antonis.bookaguide.listAdapters.RoutesAdapter;
 
-import java.util.Calendar;
-
 public class RoutesFragment extends Fragment {
 
-    private String selectedDate;
-    private TextView selectDateTextView;
+
     private Button customButton;
 //    private Button sendGuidesButton;
     private RoutesAdapter routeAdapter;
@@ -50,7 +44,6 @@ public class RoutesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.routes_layout,container,false);
-        selectDateTextView=view.findViewById(R.id.selectDateRoutes);
         routeList=view.findViewById(R.id.routesList);
         customButton=view.findViewById(R.id.button);
         customButton.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +53,6 @@ public class RoutesFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        selectDateTextView.setOnClickListener(new ClickListener());
 //        sendGuidesButton=view.findViewById(R.id.sendGuides);
 //        sendGuidesButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -69,25 +61,6 @@ public class RoutesFragment extends Fragment {
 //            }
 //        });
         return view;
-    }
-    private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(final DatePicker view, final int year, final int month, final int dayOfMonth) {
-            Calendar c = Calendar.getInstance();
-            c.set(Calendar.YEAR, year);
-            c.set(Calendar.MONTH, month);
-            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            selectedDate=dayOfMonth+"-"+(month+1)+"-"+year;
-            selectDateTextView.setText(selectedDate);
-        }
-    };
-    private class ClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(final View v) {
-            DatePickerFragment dpf = new DatePickerFragment().newInstance();
-            dpf.setCallBack(onDate);
-            dpf.show(getFragmentManager().beginTransaction(),"DatePickerFragment");
-        }
     }
 
     @Override

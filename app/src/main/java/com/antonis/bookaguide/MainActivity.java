@@ -1,19 +1,26 @@
 package com.antonis.bookaguide;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.antonis.bookaguide.listAdapters.GuidesAdapter;
+import com.antonis.bookaguide.tabView.DatePickerFragment;
 import com.antonis.bookaguide.tabView.PageAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private static DatabaseReference dbGuidesChild;
     public static final String DBTRANSPORT="Transport";
     public static final String DBROUTES="Routes";
+    private TextView selectDateTextView;
 
 
+    public static String getSelectedDate() {
+        return selectedDate;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +65,29 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         new TabLayoutMediator(tabs, viewPager,strategy).attach();
+        selectDateTextView=findViewById(R.id.selectDateMain);
+        selectDateTextView.setOnClickListener(new ClickListener());
 //        sendRoutes();
+    }
+
+    private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(final DatePicker view, final int year, final int month, final int dayOfMonth) {
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, year);
+            c.set(Calendar.MONTH, month);
+            c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            selectedDate=dayOfMonth+"-"+(month+1)+"-"+year;
+            selectDateTextView.setText(selectedDate);
+        }
+    };
+    private class ClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(final View v) {
+            DatePickerFragment dpf = new DatePickerFragment().newInstance();
+            dpf.setCallBack(onDate);
+            dpf.show(MainActivity.this.getSupportFragmentManager(),"DatePickerFragment");
+        }
     }
 
     public void onBackPressed() {

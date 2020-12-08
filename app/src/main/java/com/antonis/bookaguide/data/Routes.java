@@ -1,5 +1,7 @@
 package com.antonis.bookaguide.data;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -62,5 +64,12 @@ public class Routes {
 
     public void addPlace (String s){
         placesToVisit.add(s);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Name: "+name+"\n"+"onFoot: "+onFoot+"\n"+"Start point: "+startingPoint.toString()+"\n"
+                +"end point: "+endPoint.toString();
     }
 }

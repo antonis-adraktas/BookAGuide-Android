@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.antonis.bookaguide.data.Routes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,6 +42,7 @@ public class CustomRouteMap extends AppCompatActivity
     LocationManager locationManager;
     private Location myLocation;
     LocationListener locationListener;
+    public static Routes customRoute;
 
 
     // [START_EXCLUDE]
@@ -195,6 +197,10 @@ public class CustomRouteMap extends AppCompatActivity
     }
 
     private void finishAction(){
+        customRoute=new Routes("Custom Route",false,new com.antonis.bookaguide.data.LatLng(markerList.get(0).getPosition().latitude,markerList.get(0).getPosition().longitude),
+                new com.antonis.bookaguide.data.LatLng(markerList.get(markerList.size()-1).getPosition().latitude,markerList.get(markerList.size()-1).getPosition().longitude),markerList.size());
+        customRoute.setPointsToVisit(markerList);
+        Log.d(MainActivity.LOGAPP,"New custom route created "+customRoute.toString());
         Intent intent=new Intent(CustomRouteMap.this,MainActivity.class);
         startActivity(intent);
     }

@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -125,7 +127,19 @@ public class MainActivity extends AppCompatActivity {
 //                transport.addBookedDate(selectedDate);
                 Request request=new Request(auth.getCurrentUser().getEmail(),selectedDate,route,guide,transport);
                 Log.d(LOGAPP,request.toString());
-                databaseReference.child(DBREQUESTS).push().setValue(request);
+//              add the booked date in the arraylist of datesbooked for the guide and transport selected
+                Map<String, Object> updateGuide = new HashMap<String,Object>();
+                updateGuide.put("datesBooked",guide.getDatesBooked());
+                databaseReference.child(GuidesAdapter.DBGUIDES).child(guide.getName()).updateChildren(updateGuide);
+
+                if (transport.getName()!="On foot"){
+                    Map<String, Object> updateTransport = new HashMap<String,Object>();
+                    updateTransport.put("datesBooked",transport.getDatesBooked());
+                    databaseReference.child(DBTRANSPORT).child(transport.getName()).updateChildren(updateTransport);
+                }
+                //replace dots with underscore in email as firebase doesn't accept '.' in the name field
+                databaseReference.child(DBREQUESTS).child(replaceDotsWithUnderscore(request.getUserEmail())).push().setValue(request);
+                Toast.makeText(MainActivity.this.getApplicationContext(),R.string.reservationCompleted,Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(MainActivity.this.getApplicationContext(),R.string.selectAllFields,Toast.LENGTH_SHORT).show();
             }
@@ -154,36 +168,48 @@ public class MainActivity extends AppCompatActivity {
         return dbGuidesChild;
     }
 
+    public static String replaceDotsWithUnderscore(String s){
+        return s.replace('.','_');
+    }
+
+
 //    public static void sendGuides(){
 //        Guides guide1=new Guides("Antonis Papadopoulos","English,French,German,Greek");
-//        guide1.addBookedDate("8-12-2020");
-//        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide1);
-//
+//        guide1.addBookedDate("");
+////        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide1);
+//        databaseReference.child(GuidesAdapter.DBGUIDES).child(guide1.getName()).setValue(guide1);
+
 //        Guides guide2=new Guides("Eleni Papantoniou","English,Italian,Greek");
 //        guide2.addBookedDate("");
-//        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide2);
+////        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide2);
+//        databaseReference.child(GuidesAdapter.DBGUIDES).child(guide2.getName()).setValue(guide2);
 //
 //        Guides guide3=new Guides("Maria Karadima","English,Greek");
 //        guide3.addBookedDate("");
-//        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide3);
-//        Log.d(LOGAPP,"sent a couple of guides to firebase"+guide1+"\n"+guide2+"\n"+guide3);
+////        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide3);
+////        Log.d(LOGAPP,"sent a couple of guides to firebase"+guide1+"\n"+guide2+"\n"+guide3);
+//        databaseReference.child(GuidesAdapter.DBGUIDES).child(guide3.getName()).setValue(guide3);
 //    }
 //
 //    public static void sendTransports(){
 //        Transport transport1=new Transport("Opel Astra",3);
 //        transport1.addBookedDate("");
-//        databaseReference.child(DBTRANSPORT).push().setValue(transport1);
+////        databaseReference.child(DBTRANSPORT).push().setValue(transport1);
+//        databaseReference.child(DBTRANSPORT).child(transport1.getName()).setValue(transport1);
 //
 //        Transport transport2=new Transport("Kia Sedona",6);
 //        transport2.addBookedDate("");
-//        databaseReference.child(DBTRANSPORT).push().setValue(transport2);
+////        databaseReference.child(DBTRANSPORT).push().setValue(transport2);
+//        databaseReference.child(DBTRANSPORT).child(transport2.getName()).setValue(transport2);
 //
 //        Transport transport3=new Transport("Citroen C4",4);
 //        transport3.addBookedDate("");
-//        databaseReference.child(DBTRANSPORT).push().setValue(transport3);
+////        databaseReference.child(DBTRANSPORT).push().setValue(transport3);
+//        databaseReference.child(DBTRANSPORT).child(transport3.getName()).setValue(transport3);
 //
 //        Transport transport4=new Transport("On foot",10);
-//        databaseReference.child(DBTRANSPORT).push().setValue(transport4);
+////        databaseReference.child(DBTRANSPORT).push().setValue(transport4);
+//        databaseReference.child(DBTRANSPORT).child(transport4.getName()).setValue(transport4);
 //    }
 //    public static void sendRoutes() {
 //        Routes route1 = new Routes("Historical center classic", true, new LatLng(37.976595, 23.725942),new LatLng(37.975377, 23.736049),6);

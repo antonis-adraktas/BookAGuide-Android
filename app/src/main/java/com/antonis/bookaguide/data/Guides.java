@@ -47,6 +47,6 @@ public class Guides {
             dates="No bookings";
         }
         return "Name: "+name+"\n"+"Spoken languages: "+spokenLanguages
-                +"\n"+"Dates booked: "+dates;
+                +"\n"+"Dates booked: "+dates+"\n";
     }
 }

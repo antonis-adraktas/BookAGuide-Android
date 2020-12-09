@@ -70,6 +70,6 @@ public class Routes {
     @Override
     public String toString() {
         return "Name: "+name+"\n"+"onFoot: "+onFoot+"\n"+"Start point: "+startingPoint.toString()+"\n"
-                +"end point: "+endPoint.toString()+"\n"+"Number of places to visit: "+String.valueOf(numPlaces);
+                +"end point: "+endPoint.toString()+"\n"+"Number of places to visit: "+String.valueOf(numPlaces)+"\n";
     }
 }

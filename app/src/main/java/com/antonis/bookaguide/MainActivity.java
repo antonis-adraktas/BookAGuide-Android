@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static ViewPager2 viewPager;
     private Button reserve;
+    private Button myTrips;
     public static String selectedDate;
     private static DatabaseReference databaseReference;
     private static DatabaseReference dbGuidesChild;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String DBROUTES="Routes";
     public static final String DBREQUESTS="Requests";
     private TextView selectDateTextView;
-    private FirebaseAuth auth;
+    private static FirebaseAuth auth;
     private static Routes route;
     private static Guides guide;
     private static Transport transport;
@@ -96,6 +97,15 @@ public class MainActivity extends AppCompatActivity {
         selectDateTextView.setOnClickListener(new ClickListener());
         reserve=findViewById(R.id.reserveButton);
         reserve.setOnClickListener(new ReserveListener());
+        myTrips=findViewById(R.id.myrequests);
+        myTrips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,MyRequests.class);
+                finish();
+                startActivity(intent);
+            }
+        });
 //        sendGuides();
 //        sendTransports();
     }
@@ -166,6 +176,10 @@ public class MainActivity extends AppCompatActivity {
 
     public  static DatabaseReference getDbGuidesChild() {
         return dbGuidesChild;
+    }
+
+    public static FirebaseAuth getAuth() {
+        return auth;
     }
 
     public static String replaceDotsWithUnderscore(String s){

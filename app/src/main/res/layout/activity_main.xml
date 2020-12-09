@@ -20,6 +20,7 @@
         android:id="@+id/selectDateMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:hint="@string/selectDate"
         android:textColor="@color/teal_200"
         android:textColorHint="@color/teal_200"
@@ -29,12 +30,21 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
+        android:id="@+id/myrequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Trips"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/reserveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Send reservation"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2

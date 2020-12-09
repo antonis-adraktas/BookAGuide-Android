@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.antonis.bookaguide.data.MyMarker;
 import com.antonis.bookaguide.data.Routes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -199,11 +200,20 @@ public class CustomRouteMap extends AppCompatActivity
     private void finishAction(){
         customRoute=new Routes("Custom Route",false,new com.antonis.bookaguide.data.LatLng(markerList.get(0).getPosition().latitude,markerList.get(0).getPosition().longitude),
                 new com.antonis.bookaguide.data.LatLng(markerList.get(markerList.size()-1).getPosition().latitude,markerList.get(markerList.size()-1).getPosition().longitude),markerList.size());
-        customRoute.setPointsToVisit(markerList);
+        customRoute.setPointsToVisit(markerToMyMarker(markerList));
         Log.d(MainActivity.LOGAPP,"New custom route created "+customRoute.toString());
         MainActivity.setRoute(customRoute);
         Intent intent=new Intent(CustomRouteMap.this,MainActivity.class);
         startActivity(intent);
+    }
+
+    private ArrayList<MyMarker> markerToMyMarker(ArrayList<Marker> googleMarkerList){
+        ArrayList<MyMarker> myMarkerList=new ArrayList<>();
+        for (Marker marker: googleMarkerList){
+            MyMarker myMarker=new MyMarker(new com.antonis.bookaguide.data.LatLng(marker.getPosition().latitude,marker.getPosition().longitude),marker.getTitle());
+            myMarkerList.add(myMarker);
+        }
+        return myMarkerList;
     }
 
     private void provideInfo(String message,GoogleMap map){

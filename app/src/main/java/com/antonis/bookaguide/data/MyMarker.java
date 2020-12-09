@@ -11,4 +11,12 @@ public class MyMarker {
         this.latLng = latLng;
         this.title = title;
     }
+
+    public LatLng getLatLng() {
+        return latLng;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 }

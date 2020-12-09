@@ -2,8 +2,6 @@ package com.antonis.bookaguide.data;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.maps.model.Marker;
-
 import java.util.ArrayList;
 
 public class Routes {
@@ -11,7 +9,7 @@ public class Routes {
     private boolean onFoot;
     private com.antonis.bookaguide.data.LatLng startingPoint;
     private com.antonis.bookaguide.data.LatLng endPoint;
-    private ArrayList<Marker> pointsToVisit;
+    private ArrayList<MyMarker> pointsToVisit;
     private int numPlaces;
     private ArrayList<String> placesToVisit;
 
@@ -54,11 +52,11 @@ public class Routes {
         return placesToVisit;
     }
 
-    public ArrayList<Marker> getPointsToVisit() {
+    public ArrayList<MyMarker> getPointsToVisit() {
         return pointsToVisit;
     }
 
-    public void setPointsToVisit(ArrayList<Marker> pointsToVisit) {
+    public void setPointsToVisit(ArrayList<MyMarker> pointsToVisit) {
         this.pointsToVisit = pointsToVisit;
     }
 

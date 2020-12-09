@@ -51,6 +51,10 @@
             android:name=".MyRequests"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".RequestMap"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

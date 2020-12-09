@@ -1,6 +1,9 @@
 package com.antonis.bookaguide;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
@@ -12,14 +15,26 @@ import com.antonis.bookaguide.listAdapters.RequestAdapter;
 public class MyRequests extends AppCompatActivity {
     private RequestAdapter requestAdapter;
     private ListView requestList;
-    private Request requestSelected;
+    private static Request requestSelected;
 
+    public static Request getRequestSelected() {
+        return requestSelected;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.request_layout);
         requestList=findViewById(R.id.requestList);
+        requestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                requestSelected=(Request) requestList.getItemAtPosition(position);
+                Intent intent=new Intent(MyRequests.this,RequestMap.class);
+                finish();
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

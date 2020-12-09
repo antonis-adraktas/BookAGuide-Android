@@ -2,7 +2,6 @@ package com.antonis.bookaguide.tabView;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +61,9 @@ public class GuidesFragment extends Fragment {
                     if (guideSelected.getDatesBooked()!=null &&guideSelected.getDatesBooked().contains(MainActivity.getSelectedDate())){
                         guideBookedDialog(MainActivity.getSelectedDate());
                     }else{
-                        Log.d(MainActivity.LOGAPP,guideSelected.toString());
+//                        Log.d(MainActivity.LOGAPP,guideSelected.toString());
+                        guideSelected.addBookedDate(MainActivity.getSelectedDate());
+                        MainActivity.setGuide(guideSelected);
                         Toast.makeText(GuidesFragment.this.getContext(),R.string.guideSelection,Toast.LENGTH_LONG).show();
                         MainActivity.getViewPager().setCurrentItem(2);
                     }

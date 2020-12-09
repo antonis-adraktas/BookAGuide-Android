@@ -42,6 +42,7 @@ public class RoutesFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,7 @@ public class RoutesFragment extends Fragment {
                 }else{
                     routeSelected= (Routes) routeList.getItemAtPosition(position);
                     Log.d(MainActivity.LOGAPP,routeSelected.toString());
+                    MainActivity.setRoute(routeSelected);
                     Toast.makeText(RoutesFragment.this.getContext(),R.string.routeSelection,Toast.LENGTH_LONG).show();
                     }
                 }
@@ -112,4 +114,5 @@ public class RoutesFragment extends Fragment {
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
     }
+
 }

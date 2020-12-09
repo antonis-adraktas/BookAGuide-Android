@@ -2,6 +2,7 @@ package com.antonis.bookaguide.tabView;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class CarsFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +58,11 @@ public class CarsFragment extends Fragment {
                         transportBookedDialog(MainActivity.getSelectedDate());
                     }else{
 //                        Log.d(MainActivity.LOGAPP,transport.toString());
+                        if (transport.getName()!="On foot"){                                  //no need to add booked dates for on foot guidance
+                            transport.addBookedDate(MainActivity.getSelectedDate());
+                        }
+                        Log.d(MainActivity.LOGAPP,transport.toString());
+                        MainActivity.setTransport(transport);
                         Toast.makeText(CarsFragment.this.getContext(),R.string.transportSelection,Toast.LENGTH_LONG).show();
                         MainActivity.getViewPager().setCurrentItem(0);
                     }

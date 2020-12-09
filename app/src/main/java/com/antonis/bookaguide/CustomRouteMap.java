@@ -201,6 +201,7 @@ public class CustomRouteMap extends AppCompatActivity
                 new com.antonis.bookaguide.data.LatLng(markerList.get(markerList.size()-1).getPosition().latitude,markerList.get(markerList.size()-1).getPosition().longitude),markerList.size());
         customRoute.setPointsToVisit(markerList);
         Log.d(MainActivity.LOGAPP,"New custom route created "+customRoute.toString());
+        MainActivity.setRoute(customRoute);
         Intent intent=new Intent(CustomRouteMap.this,MainActivity.class);
         startActivity(intent);
     }

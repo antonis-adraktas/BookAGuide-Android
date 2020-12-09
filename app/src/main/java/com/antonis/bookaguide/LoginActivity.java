@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     showErrorDialog("There was a problem signing in");
                 }else{
                     Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+//                    Log.d(MainActivity.LOGAPP,auth.getCurrentUser().getUid()+"\n"+auth.getCurrentUser().getEmail());
                     finish();
                     startActivity(intent);
                 }

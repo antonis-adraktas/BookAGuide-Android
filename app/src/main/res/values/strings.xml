@@ -30,5 +30,6 @@
     <string name="guideSelection">You have successfully selected your guide. Please select a car and your route if not already done and send your reservation</string>
     <string name="transportSelection">You have successfully selected your transport. Please select a car and your route if not already done and send your reservation</string>
     <string name="routeSelection">You have successfully selected a route from the predefined list. Please select a car and your guide if not already done and send your reservation</string>
+    <string name="selectAllFields">You need to select a date, a route, a guide and transport first to perform a reservation</string>
 
 </resources>

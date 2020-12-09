@@ -3,20 +3,27 @@ package com.antonis.bookaguide;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.antonis.bookaguide.data.Guides;
+import com.antonis.bookaguide.data.Request;
+import com.antonis.bookaguide.data.Routes;
+import com.antonis.bookaguide.data.Transport;
 import com.antonis.bookaguide.listAdapters.GuidesAdapter;
 import com.antonis.bookaguide.tabView.DatePickerFragment;
 import com.antonis.bookaguide.tabView.PageAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -33,11 +40,28 @@ public class MainActivity extends AppCompatActivity {
     private static DatabaseReference dbGuidesChild;
     public static final String DBTRANSPORT="Transport";
     public static final String DBROUTES="Routes";
+    public static final String DBREQUESTS="Requests";
     private TextView selectDateTextView;
+    private FirebaseAuth auth;
+    private static Routes route;
+    private static Guides guide;
+    private static Transport transport;
 
 
     public static String getSelectedDate() {
         return selectedDate;
+    }
+
+    public static void setRoute(Routes route) {
+        MainActivity.route = route;
+    }
+
+    public static void setGuide(Guides guide) {
+        MainActivity.guide = guide;
+    }
+
+    public static void setTransport(Transport transport) {
+        MainActivity.transport = transport;
     }
 
     @Override
@@ -47,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseReference= FirebaseDatabase.getInstance().getReference();
         dbGuidesChild=databaseReference.child(GuidesAdapter.DBGUIDES);
+        auth=FirebaseAuth.getInstance();
 
         PageAdapter pageAdapter=new PageAdapter(this);
         viewPager=findViewById(R.id.viewpager);
@@ -67,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
         new TabLayoutMediator(tabs, viewPager,strategy).attach();
         selectDateTextView=findViewById(R.id.selectDateMain);
         selectDateTextView.setOnClickListener(new ClickListener());
-//        sendRoutes();
+        reserve=findViewById(R.id.reserveButton);
+        reserve.setOnClickListener(new ReserveListener());
+//        sendGuides();
+//        sendTransports();
     }
 
     private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
@@ -87,6 +115,20 @@ public class MainActivity extends AppCompatActivity {
             DatePickerFragment dpf = new DatePickerFragment().newInstance();
             dpf.setCallBack(onDate);
             dpf.show(MainActivity.this.getSupportFragmentManager(),"DatePickerFragment");
+        }
+    }
+    private class ReserveListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            if (selectedDate!=null && route!=null && transport!=null&& guide!=null){
+//                guide.addBookedDate(selectedDate);
+//                transport.addBookedDate(selectedDate);
+                Request request=new Request(auth.getCurrentUser().getEmail(),selectedDate,route,guide,transport);
+                Log.d(LOGAPP,request.toString());
+                databaseReference.child(DBREQUESTS).push().setValue(request);
+            }else{
+                Toast.makeText(MainActivity.this.getApplicationContext(),R.string.selectAllFields,Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -118,21 +160,26 @@ public class MainActivity extends AppCompatActivity {
 //        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide1);
 //
 //        Guides guide2=new Guides("Eleni Papantoniou","English,Italian,Greek");
+//        guide2.addBookedDate("");
 //        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide2);
 //
 //        Guides guide3=new Guides("Maria Karadima","English,Greek");
+//        guide3.addBookedDate("");
 //        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide3);
 //        Log.d(LOGAPP,"sent a couple of guides to firebase"+guide1+"\n"+guide2+"\n"+guide3);
 //    }
 //
 //    public static void sendTransports(){
 //        Transport transport1=new Transport("Opel Astra",3);
+//        transport1.addBookedDate("");
 //        databaseReference.child(DBTRANSPORT).push().setValue(transport1);
 //
 //        Transport transport2=new Transport("Kia Sedona",6);
+//        transport2.addBookedDate("");
 //        databaseReference.child(DBTRANSPORT).push().setValue(transport2);
 //
 //        Transport transport3=new Transport("Citroen C4",4);
+//        transport3.addBookedDate("");
 //        databaseReference.child(DBTRANSPORT).push().setValue(transport3);
 //
 //        Transport transport4=new Transport("On foot",10);

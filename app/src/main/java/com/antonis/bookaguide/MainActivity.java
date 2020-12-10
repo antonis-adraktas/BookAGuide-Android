@@ -134,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if (selectedDate!=null && route!=null && transport!=null&& guide!=null){
-//                guide.addBookedDate(selectedDate);
-//                transport.addBookedDate(selectedDate);
                 Request request=new Request(auth.getCurrentUser().getEmail(),selectedDate,route,guide,transport);
                 Log.d(LOGAPP,request.toString());
 //              add the booked date in the arraylist of datesbooked for the guide and transport selected

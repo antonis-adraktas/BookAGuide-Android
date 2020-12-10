@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         });
 //        sendGuides();
 //        sendTransports();
+//        sendRoutes();
     }
 
     private DatePickerDialog.OnDateSetListener onDate = new DatePickerDialog.OnDateSetListener() {
@@ -234,6 +235,22 @@ public class MainActivity extends AppCompatActivity {
 //        route1.addPlace("Acropolis museum");
 //        route1.addPlace("Stili Dios");
 //        route1.addPlace("Syntagma square");
+//        ArrayList<MyMarker> list=new ArrayList<>();
+//        MyMarker marker=new MyMarker(new LatLng(37.976434, 23.725882),"Monastiraki square");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.974800, 23.721851),"Ancient Agora");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.976483, 23.720599),"Thiseio");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.971649, 23.726415),"Parthenon");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.968467, 23.729021),"Acropolis museum");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.969348, 23.732644),"Stili Dios");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.975310, 23.736045),"Syntagma square");
+//        list.add(marker);
+//        route1.setPointsToVisit(list);
 //        databaseReference.child(DBROUTES).push().setValue(route1);
 //
 //        Routes route2 = new Routes("Athens sea front", false, new LatLng(37.938635, 23.659739),new LatLng(37.812531, 23.781717),5);
@@ -242,6 +259,18 @@ public class MainActivity extends AppCompatActivity {
 //        route2.addPlace("Marina Floisbou");
 //        route2.addPlace("Glyfada");
 //        route2.addPlace("Bouliagmeni");
+//        list=new ArrayList<>();
+//        marker=new MyMarker(new LatLng(37.938564, 23.659601),"Mikrolimano");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.940460, 23.693794),"Niarxos foundation");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.931073, 23.685534),"Marina Floisbou");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.863097, 23.746480),"Glyfada");
+//        list.add(marker);
+//        marker=new MyMarker(new LatLng(37.812892, 23.782433),"Bouliagmeni");
+//        list.add(marker);
+//        route2.setPointsToVisit(list);
 //        databaseReference.child(DBROUTES).push().setValue(route2);
 //
 //    }

@@ -58,7 +58,8 @@ public class CarsFragment extends Fragment {
                         transportBookedDialog(MainActivity.getSelectedDate());
                     }else{
 //                        Log.d(MainActivity.LOGAPP,transport.toString());
-                        if (transport.getName()!="On foot"){                                  //no need to add booked dates for on foot guidance
+                        if (!transport.getName().equals("On foot")){                                  //no need to add booked dates for on foot guidance
+                            Log.d(MainActivity.LOGAPP,"Name of transport"+transport.getName());
                             transport.addBookedDate(MainActivity.getSelectedDate());
                         }
                         Log.d(MainActivity.LOGAPP,transport.toString());

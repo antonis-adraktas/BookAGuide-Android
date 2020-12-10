@@ -154,14 +154,6 @@ public class RequestMap extends AppCompatActivity
             }
         }
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (locationManager!=null) locationManager.removeUpdates(locationListener);
-        Log.d(MainActivity.LOGAPP,"locationlistener remove updates when onPause");
-    }
     public void showAlertDialogWithAutoDismiss(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(RequestMap.this);
         builder.setTitle("Approaching landmark")
@@ -184,6 +176,15 @@ public class RequestMap extends AppCompatActivity
             }
         }, 5000); //change 5000 with a specific time you want
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (locationManager!=null) locationManager.removeUpdates(locationListener);
+        Log.d(MainActivity.LOGAPP,"locationlistener remove updates when onPause");
+    }
+
 
     public void onBackPressed() {
             Intent intent=new Intent(RequestMap.this,MyRequests.class);

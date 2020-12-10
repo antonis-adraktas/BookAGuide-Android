@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 updateGuide.put("datesBooked",guide.getDatesBooked());
                 databaseReference.child(GuidesAdapter.DBGUIDES).child(guide.getName()).updateChildren(updateGuide);
 
-                if (transport.getName()!="On foot"){
+                if (!transport.getName().equals("On foot")){
                     Map<String, Object> updateTransport = new HashMap<String,Object>();
                     updateTransport.put("datesBooked",transport.getDatesBooked());
                     databaseReference.child(DBTRANSPORT).child(transport.getName()).updateChildren(updateTransport);

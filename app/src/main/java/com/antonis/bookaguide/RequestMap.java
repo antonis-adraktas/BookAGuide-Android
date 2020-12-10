@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class RequestMap extends AppCompatActivity
         implements OnMapReadyCallback {
@@ -110,7 +111,7 @@ public class RequestMap extends AppCompatActivity
             }
         };
 
-        showAlertWhenMarkerIsNear(myLocation,markerList);
+//        showAlertWhenMarkerIsNear(myLocation,markerList);
 
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
@@ -138,13 +139,18 @@ public class RequestMap extends AppCompatActivity
     }
 
     private void showAlertWhenMarkerIsNear(Location location, ArrayList<MyMarker> myMarkerArrayList){
-        for (MyMarker marker: myMarkerArrayList){
+//         Use iterator to avoid ConcurrentModificationException when removing items
+//         Items are removed so that notification appears only once when distance criteria is met and not spamming the user while location changes
+        Iterator<MyMarker> itr=myMarkerArrayList.iterator();
+        while (itr.hasNext()) {
+            MyMarker marker=itr.next();
             LatLng googleLatLng=new LatLng(marker.getLatLng().getLatitude(),marker.getLatLng().getLongitude());
             float distance[]={0};
             Location.distanceBetween(location.getLatitude(),location.getLongitude(),googleLatLng.latitude,googleLatLng.longitude,distance);
             Log.d(MainActivity.LOGAPP,"distance between my location and marker "+marker.getTitle()+" is "+String.valueOf(distance[0]));
             if (distance[0]<100){
                 showAlertDialogWithAutoDismiss("Next stop: \n"+marker.getTitle());
+                itr.remove();
             }
         }
     }

@@ -3,11 +3,14 @@ package com.antonis.bookaguide;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -90,12 +93,24 @@ public class RequestMap extends AppCompatActivity
         googleMap.setLatLngBoundsForCameraTarget(atticaBounds);
         googleMap.setMinZoomPreference(11);
 
+        ArrayList<MyMarker> markerList=myRequest.getRoute().getPointsToVisit();
+        for (MyMarker marker: markerList){
+            LatLng googleLatLng= new LatLng(marker.getLatLng().getLatitude(),marker.getLatLng().getLongitude());
+            googleMap.addMarker(new MarkerOptions()
+                    .position(googleLatLng))
+                    .setTitle(marker.getTitle());
+
+        }
+
         locationListener= new LocationListener() {
             @Override
             public void onLocationChanged(@NonNull Location location) {
                 myLocation=location;
+                showAlertWhenMarkerIsNear(location,markerList);
             }
         };
+
+        showAlertWhenMarkerIsNear(myLocation,markerList);
 
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
@@ -109,24 +124,29 @@ public class RequestMap extends AppCompatActivity
             }
         });
 
-        ArrayList<MyMarker> markerList=myRequest.getRoute().getPointsToVisit();
-        for (MyMarker marker: markerList){
-            LatLng googleLatLng= new LatLng(marker.getLatLng().getLatitude(),marker.getLatLng().getLongitude());
-            googleMap.addMarker(new MarkerOptions()
-            .position(googleLatLng))
-                    .setTitle(marker.getTitle());
 
-        }
 
 
     }
 
     private void provideInfo(String message) {
-        new AlertDialog.Builder(RequestMap.this.getApplicationContext())
+        new AlertDialog.Builder(RequestMap.this)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, null)
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
+    }
+
+    private void showAlertWhenMarkerIsNear(Location location, ArrayList<MyMarker> myMarkerArrayList){
+        for (MyMarker marker: myMarkerArrayList){
+            LatLng googleLatLng=new LatLng(marker.getLatLng().getLatitude(),marker.getLatLng().getLongitude());
+            float distance[]={0};
+            Location.distanceBetween(location.getLatitude(),location.getLongitude(),googleLatLng.latitude,googleLatLng.longitude,distance);
+            Log.d(MainActivity.LOGAPP,"distance between my location and marker "+marker.getTitle()+" is "+String.valueOf(distance[0]));
+            if (distance[0]<100){
+                showAlertDialogWithAutoDismiss("Next stop: \n"+marker.getTitle());
+            }
+        }
     }
 
     @Override
@@ -136,5 +156,34 @@ public class RequestMap extends AppCompatActivity
         if (locationManager!=null) locationManager.removeUpdates(locationListener);
         Log.d(MainActivity.LOGAPP,"locationlistener remove updates when onPause");
     }
+    public void showAlertDialogWithAutoDismiss(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(RequestMap.this);
+        builder.setTitle("Approaching landmark")
+                .setMessage(message)
+                .setCancelable(false).setCancelable(false)
+                .setPositiveButton("SKIP", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //this for skip dialog
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (alertDialog.isShowing()){
+                    alertDialog.dismiss();
+                }
+            }
+        }, 5000); //change 5000 with a specific time you want
+    }
+
+    public void onBackPressed() {
+            Intent intent=new Intent(RequestMap.this,MyRequests.class);
+            finish();
+            startActivity(intent);
+    }
+
 
 }

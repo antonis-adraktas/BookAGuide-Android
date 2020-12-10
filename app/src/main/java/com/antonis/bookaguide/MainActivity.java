@@ -189,39 +189,31 @@ public class MainActivity extends AppCompatActivity {
 //    public static void sendGuides(){
 //        Guides guide1=new Guides("Antonis Papadopoulos","English,French,German,Greek");
 //        guide1.addBookedDate("");
-////        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide1);
 //        databaseReference.child(GuidesAdapter.DBGUIDES).child(guide1.getName()).setValue(guide1);
-
+//
 //        Guides guide2=new Guides("Eleni Papantoniou","English,Italian,Greek");
 //        guide2.addBookedDate("");
-////        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide2);
 //        databaseReference.child(GuidesAdapter.DBGUIDES).child(guide2.getName()).setValue(guide2);
 //
 //        Guides guide3=new Guides("Maria Karadima","English,Greek");
 //        guide3.addBookedDate("");
-////        databaseReference.child(GuidesAdapter.DBGUIDES).push().setValue(guide3);
-////        Log.d(LOGAPP,"sent a couple of guides to firebase"+guide1+"\n"+guide2+"\n"+guide3);
 //        databaseReference.child(GuidesAdapter.DBGUIDES).child(guide3.getName()).setValue(guide3);
 //    }
-//
+////
 //    public static void sendTransports(){
 //        Transport transport1=new Transport("Opel Astra",3);
 //        transport1.addBookedDate("");
-////        databaseReference.child(DBTRANSPORT).push().setValue(transport1);
 //        databaseReference.child(DBTRANSPORT).child(transport1.getName()).setValue(transport1);
 //
 //        Transport transport2=new Transport("Kia Sedona",6);
 //        transport2.addBookedDate("");
-////        databaseReference.child(DBTRANSPORT).push().setValue(transport2);
 //        databaseReference.child(DBTRANSPORT).child(transport2.getName()).setValue(transport2);
 //
 //        Transport transport3=new Transport("Citroen C4",4);
 //        transport3.addBookedDate("");
-////        databaseReference.child(DBTRANSPORT).push().setValue(transport3);
 //        databaseReference.child(DBTRANSPORT).child(transport3.getName()).setValue(transport3);
 //
 //        Transport transport4=new Transport("On foot",10);
-////        databaseReference.child(DBTRANSPORT).push().setValue(transport4);
 //        databaseReference.child(DBTRANSPORT).child(transport4.getName()).setValue(transport4);
 //    }
 //    public static void sendRoutes() {

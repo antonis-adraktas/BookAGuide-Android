@@ -35,6 +35,7 @@ public class RequestAdapter extends BaseAdapter {
         snapShotList=new ArrayList<>();
     }
     static class ViewHolder{
+        TextView routeName;
         TextView date;
         TextView guide;
         TextView transport;
@@ -96,6 +97,7 @@ public class RequestAdapter extends BaseAdapter {
             convertView=inflater.inflate(R.layout.request_list_per_row,parent,false);
 
             final ViewHolder holder=new ViewHolder();
+            holder.routeName=convertView.findViewById(R.id.requestRouteName);
             holder.date=convertView.findViewById(R.id.requestDate);
             holder.guide=convertView.findViewById(R.id.requestGuide);
             holder.transport=convertView.findViewById(R.id.requestTransport);
@@ -105,14 +107,17 @@ public class RequestAdapter extends BaseAdapter {
         final Request request= getItem(position);
         final ViewHolder holder=(ViewHolder) convertView.getTag();
 
+        String requestRouteName=request.getRoute().getName();
+        holder.routeName.setText("Name: "+requestRouteName);
+
         String requestDate=request.getDate();
-        holder.date.setText(requestDate);
+        holder.date.setText("Date: "+requestDate);
 
         String guide=request.getGuide().getName();
-        holder.guide.setText(guide);
+        holder.guide.setText("Guide: "+guide);
 
         String requestTransport=request.getTransport().getName();
-        holder.transport.setText(requestTransport);
+        holder.transport.setText("Transport: "+requestTransport);
 
         String requestRoute=String.valueOf(request.getRoute().getNumPlaces());
         holder.route.setText("Number of stops: "+requestRoute);

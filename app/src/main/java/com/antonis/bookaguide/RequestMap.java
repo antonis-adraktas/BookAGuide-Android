@@ -42,6 +42,8 @@ public class RequestMap extends AppCompatActivity
     private Location myLocation;
     LocationListener locationListener;
     private Request myRequest;
+    ArrayList<MyMarker> markerList;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,8 @@ public class RequestMap extends AppCompatActivity
             return;
         }
         myRequest=MyRequests.getRequestSelected();
+        markerList=myRequest.getRoute().getPointsToVisit();
+
     }
 
     private void enableMyLocation(GoogleMap map) {
@@ -69,6 +73,14 @@ public class RequestMap extends AppCompatActivity
                 map.getUiSettings().setMyLocationButtonEnabled(true);
                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 myLocation=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                locationListener= new LocationListener() {
+                    @Override
+                    public void onLocationChanged(@NonNull Location location) {
+                        myLocation=location;
+                        showAlertWhenMarkerIsNear(location,markerList);
+                    }
+                };
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,1,locationListener);
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
@@ -94,7 +106,7 @@ public class RequestMap extends AppCompatActivity
         googleMap.setLatLngBoundsForCameraTarget(atticaBounds);
         googleMap.setMinZoomPreference(11);
 
-        ArrayList<MyMarker> markerList=myRequest.getRoute().getPointsToVisit();
+
         for (MyMarker marker: markerList){
             LatLng googleLatLng= new LatLng(marker.getLatLng().getLatitude(),marker.getLatLng().getLongitude());
             googleMap.addMarker(new MarkerOptions()
@@ -103,13 +115,7 @@ public class RequestMap extends AppCompatActivity
 
         }
 
-        locationListener= new LocationListener() {
-            @Override
-            public void onLocationChanged(@NonNull Location location) {
-                myLocation=location;
-                showAlertWhenMarkerIsNear(location,markerList);
-            }
-        };
+
 
 //        showAlertWhenMarkerIsNear(myLocation,markerList);
 
@@ -121,6 +127,7 @@ public class RequestMap extends AppCompatActivity
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(myLocation.getLatitude(),
                                 myLocation.getLongitude()), 14));
+                showAlertWhenMarkerIsNear(myLocation,markerList);
                 return false;
             }
         });

@@ -13,7 +13,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.antonis.bookaguide"
+        applicationId "com.antonis.bookaguide.wear"
         minSdkVersion 28
         targetSdkVersion 30
         versionCode 1
@@ -50,9 +50,14 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    
+
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation  ('com.google.firebase:firebase-database')
+
+//    implementation project(':app')
+
+
+
 
 
 }

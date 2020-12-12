@@ -1,4 +1,4 @@
-package com.antonis.bookaguide;
+package com.antonis.bookaguide.wear;
 
 import android.Manifest;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
@@ -15,25 +16,44 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.wear.widget.SwipeDismissFrameLayout;
+
+import com.antonis.bookaguide.wear.data.MyMarker;
+import com.antonis.bookaguide.wear.data.Request;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends WearableActivity  implements OnMapReadyCallback {
 
+    public static final String LOG="BookAGuide_wear";
+    public static final String DBREQUESTS="Requests";
+    public static final String ME="antonis_adraktas@gmail_com";
     final int REQUEST_CODE = 123;
     LocationManager locationManager;
     private Location myLocation;
     LocationListener locationListener;
+    private Request myExampleRequest;
+
+
 
     private GoogleMap mMap;
+
 
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
@@ -92,6 +112,8 @@ public class MainActivity extends WearableActivity  implements OnMapReadyCallbac
             return;
         }
 
+        Log.d(LOG,"on create called");
+        myExampleRequest=MyRequests.getRequestSelected();
     }
     private void enableMyLocation(GoogleMap map) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -101,6 +123,7 @@ public class MainActivity extends WearableActivity  implements OnMapReadyCallbac
                 map.getUiSettings().setMyLocationButtonEnabled(true);
                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 myLocation=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Log.d(LOG,"enable location called");
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
@@ -141,10 +164,35 @@ public class MainActivity extends WearableActivity  implements OnMapReadyCallbac
                 return false;
             }
         });
+
+        ArrayList<MyMarker> markerList=myExampleRequest.getRoute().getPointsToVisit();
+        for (MyMarker marker: markerList){
+            LatLng googleLatLng= new LatLng(marker.getLatLng().getLatitude(),marker.getLatLng().getLongitude());
+            googleMap.addMarker(new MarkerOptions()
+                    .position(googleLatLng))
+                    .setTitle(marker.getTitle());
+            Log.d(LOG,"markers loaded");
+
+        }
+
+        locationListener= new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                myLocation=location;
+            }
+        };
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (locationManager!=null) locationManager.removeUpdates(locationListener);
+        Log.d("BookAGuide_wear","locationlistener remove updates when onPause");
+    }
+
 }

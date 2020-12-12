@@ -1,4 +1,4 @@
-package com.antonis.adraktas.wear;
+package com.antonis.bookaguide;
 
 import android.Manifest;
 import android.content.Context;
@@ -12,21 +12,18 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowInsets;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.wear.widget.SwipeDismissFrameLayout;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MainActivity extends WearableActivity  implements OnMapReadyCallback {
@@ -131,7 +128,7 @@ public class MainActivity extends WearableActivity  implements OnMapReadyCallbac
         enableMyLocation(googleMap);
         googleMap.setLatLngBoundsForCameraTarget(atticaBounds);
         googleMap.setMinZoomPreference(11);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atticaBounds.getCenter(), 12));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atticaBounds.getCenter(), 11));
 
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override

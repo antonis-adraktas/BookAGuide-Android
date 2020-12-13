@@ -80,7 +80,7 @@ public class RequestMap extends AppCompatActivity
                         showAlertWhenMarkerIsNear(location,markerList);
                     }
                 };
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,1,locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,20,locationListener);
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission

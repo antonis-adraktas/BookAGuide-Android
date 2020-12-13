@@ -126,6 +126,7 @@ public class MainActivity extends WearableActivity  implements OnMapReadyCallbac
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             if (map != null) {
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(markerList.get(0).getLatLng().getLatitude(),markerList.get(0).getLatLng().getLongitude()), 13));
                 map.setMyLocationEnabled(true);
                 map.getUiSettings().setMyLocationButtonEnabled(true);
                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -171,11 +172,11 @@ public class MainActivity extends WearableActivity  implements OnMapReadyCallbac
             Log.d(LOG,"markers loaded");
 
         }
-
-        enableMyLocation(googleMap);
         googleMap.setLatLngBoundsForCameraTarget(atticaBounds);
         googleMap.setMinZoomPreference(11);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atticaBounds.getCenter(), 11));
+        enableMyLocation(googleMap);
+
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atticaBounds.getCenter(), 11));
 
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override

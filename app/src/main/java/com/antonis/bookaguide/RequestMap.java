@@ -73,6 +73,12 @@ public class RequestMap extends AppCompatActivity
                 map.getUiSettings().setMyLocationButtonEnabled(true);
                 locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 myLocation=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (myLocation==null){
+                    myLocation=locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (myLocation==null){
+                        Toast.makeText(RequestMap.this,"myLocation is still null, couldn't retrieve last known location from GPS or Network provider",Toast.LENGTH_SHORT).show();
+                    }
+                }
                 locationListener= new LocationListener() {
                     @Override
                     public void onLocationChanged(@NonNull Location location) {
@@ -122,13 +128,11 @@ public class RequestMap extends AppCompatActivity
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
-                Toast.makeText(RequestMap.this, "MyLocation button clicked", Toast.LENGTH_SHORT)
-                        .show();
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(myLocation.getLatitude(),
-                                myLocation.getLongitude()), 14));
-                showAlertWhenMarkerIsNear(myLocation,markerList);
-                return false;
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(myLocation.getLatitude(),
+                                    myLocation.getLongitude()), 16));
+                    showAlertWhenMarkerIsNear(myLocation,markerList);
+                    return false;
             }
         });
 

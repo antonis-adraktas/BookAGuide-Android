@@ -7,7 +7,8 @@ When a reservation is complete the user can access the routes reserved on a map 
 
 ## How to use this
 Clone the repository or download the .zip file of the project and open it in android studio (or any other IDE suitable for android development).
-Under app folder is the android application and under wear is a wearable application with limited functionality.
+Under app folder is the android application and under wear is a wearable application with limited functionality.  
+
 The application is using firebase as backend database and also using the Google Maps API.
 For Firebase a new project needs to be created and the necessary process to configure the connection of the app to your firebase realtime db needs to be completed
 (download .json file from firebase and place in your folder etc).

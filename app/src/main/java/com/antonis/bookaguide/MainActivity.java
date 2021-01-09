@@ -152,8 +152,16 @@ public class MainActivity extends AppCompatActivity {
                 //replace dots with underscore in email as firebase doesn't accept '.' in the name field
                 databaseReference.child(DBREQUESTS).child(replaceDotsWithUnderscore(request.getUserEmail())).push().setValue(request);
                 Toast.makeText(MainActivity.this.getApplicationContext(),R.string.reservationCompleted,Toast.LENGTH_LONG).show();
+                Bundle params = new Bundle();
+                params.putString("user_email", auth.getCurrentUser().getEmail());
+                params.putString("Status", "Successful reservation");
+                mFirebaseAnalytics.logEvent("reservation_button", params);
             }else{
                 Toast.makeText(MainActivity.this.getApplicationContext(),R.string.selectAllFields,Toast.LENGTH_SHORT).show();
+                Bundle params = new Bundle();
+                params.putString("user_email", auth.getCurrentUser().getEmail());
+                params.putString("Status", "Data missing, reservation not send");
+                mFirebaseAnalytics.logEvent("reservation_button", params);
             }
         }
     }

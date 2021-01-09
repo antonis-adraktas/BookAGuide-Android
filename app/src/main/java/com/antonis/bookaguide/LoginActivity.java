@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -27,11 +28,13 @@ public class LoginActivity extends AppCompatActivity {
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mFirebaseAnalytics=FirebaseAnalytics.getInstance(this);
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.login_email);
         mPasswordView = (EditText) findViewById(R.id.login_password);
@@ -82,6 +85,11 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     Intent intent=new Intent(LoginActivity.this,MainActivity.class);
 //                    Log.d(MainActivity.LOGAPP,auth.getCurrentUser().getUid()+"\n"+auth.getCurrentUser().getEmail());
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, auth.getCurrentUser().getEmail());
+                    bundle.putString(FirebaseAnalytics.Param.METHOD, "Email/Password");
+                    Log.d(LOGAPP,bundle.toString());
+                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
                     finish();
                     startActivity(intent);
                 }

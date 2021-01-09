@@ -23,6 +23,7 @@ import com.antonis.bookaguide.tabView.DatePickerFragment;
 import com.antonis.bookaguide.tabView.PageAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private static Routes route;
     private static Guides guide;
     private static Transport transport;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     public static String getSelectedDate() {
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         databaseReference= FirebaseDatabase.getInstance().getReference();
         dbGuidesChild=databaseReference.child(GuidesAdapter.DBGUIDES);
         auth=FirebaseAuth.getInstance();
+        mFirebaseAnalytics=FirebaseAnalytics.getInstance(this);
 
         PageAdapter pageAdapter=new PageAdapter(this);
         viewPager=findViewById(R.id.viewpager);

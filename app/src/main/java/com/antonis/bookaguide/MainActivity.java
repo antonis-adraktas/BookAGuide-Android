@@ -152,8 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //replace dots with underscore in email as firebase doesn't accept '.' in the name field
                 databaseReference.child(DBREQUESTS).child(replaceDotsWithUnderscore(request.getUserEmail())).push().setValue(request);
-//                Toast.makeText(MainActivity.this.getApplicationContext(),R.string.reservationCompleted,Toast.LENGTH_LONG).show();
-                successfulReservationDialog();
+                successfulReservationDialog();    //info dialog and reinitialize values for new reservations
 
             // Log the event in Google analytics
                 Bundle params = new Bundle();

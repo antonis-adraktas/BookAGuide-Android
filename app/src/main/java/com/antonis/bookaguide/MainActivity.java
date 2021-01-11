@@ -1,5 +1,6 @@
 package com.antonis.bookaguide;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -151,7 +152,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //replace dots with underscore in email as firebase doesn't accept '.' in the name field
                 databaseReference.child(DBREQUESTS).child(replaceDotsWithUnderscore(request.getUserEmail())).push().setValue(request);
-                Toast.makeText(MainActivity.this.getApplicationContext(),R.string.reservationCompleted,Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this.getApplicationContext(),R.string.reservationCompleted,Toast.LENGTH_LONG).show();
+                successfulReservationDialog();
+
+            // Log the event in Google analytics
                 Bundle params = new Bundle();
                 params.putString("user_email", auth.getCurrentUser().getEmail());
                 params.putString("Status", "Successful reservation");
@@ -194,6 +198,19 @@ public class MainActivity extends AppCompatActivity {
 
     public static String replaceDotsWithUnderscore(String s){
         return s.replace('.','_');
+    }
+
+    private void successfulReservationDialog(){
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage(R.string.reservationCompleted)
+                .setPositiveButton(android.R.string.ok,null)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+        selectedDate=null;
+        selectDateTextView.setText(R.string.selectDate);
+        route=null;
+        guide=null;
+        transport=null;
     }
 
 

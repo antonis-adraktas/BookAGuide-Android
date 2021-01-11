@@ -31,7 +31,7 @@
     <string name="transportSelection">You have successfully selected your transport. Please select a car and your route if not already done and send your reservation</string>
     <string name="routeSelection">You have successfully selected a route from the predefined list. Please select a car and your guide if not already done and send your reservation</string>
     <string name="selectAllFields">You need to select a date, a route, a guide and transport first to perform a reservation</string>
-    <string name="reservationCompleted">You have successfully completed your reservation. You will receive an email with the details soon</string>
+    <string name="reservationCompleted">You have successfully completed your reservation. Click ok to continue navigating in the app.</string>
     <string name="myRequestInfo">Here you can see the places to be visited in your trip. As you are getting closer to a location a popup will provide more info</string>
 
 </resources>

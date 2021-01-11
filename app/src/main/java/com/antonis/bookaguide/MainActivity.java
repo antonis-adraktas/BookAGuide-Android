@@ -20,7 +20,6 @@ import com.antonis.bookaguide.data.Request;
 import com.antonis.bookaguide.data.Routes;
 import com.antonis.bookaguide.data.Transport;
 import com.antonis.bookaguide.listAdapters.GuidesAdapter;
-import com.antonis.bookaguide.tabView.DatePickerFragment;
 import com.antonis.bookaguide.tabView.PageAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -129,9 +128,10 @@ public class MainActivity extends AppCompatActivity {
     private class ClickListener implements View.OnClickListener {
         @Override
         public void onClick(final View v) {
-            DatePickerFragment dpf = new DatePickerFragment().newInstance();
-            dpf.setCallBack(onDate);
-            dpf.show(MainActivity.this.getSupportFragmentManager(),"DatePickerFragment");
+            Calendar c = Calendar.getInstance();
+            DatePickerDialog datePicker=new DatePickerDialog(MainActivity.this,onDate,c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+            datePicker.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+            datePicker.show();
         }
     }
     private class ReserveListener implements View.OnClickListener{

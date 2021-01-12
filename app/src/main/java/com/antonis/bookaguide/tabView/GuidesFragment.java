@@ -101,6 +101,13 @@ public class GuidesFragment extends Fragment {
         super.onResume();
         guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity());
         guidesList.setAdapter(guidesAdapter);
+
+//        Log.d(MainActivity.LOGAPP,"Number of items in list "+guidesList.getChildCount()+" onResume");
+//        if (MainActivity.getGuide()==null){
+//            for (int i=0;i<guidesList.getChildCount();i++){
+//                guidesList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+//            }
+//        }
     }
 
     @Override

@@ -109,6 +109,13 @@ public class RoutesFragment extends Fragment {
         super.onResume();
         routeAdapter=new RoutesAdapter(RoutesFragment.this.getActivity());
         routeList.setAdapter(routeAdapter);
+
+//        Log.d(MainActivity.LOGAPP,"Number of items in list "+routeList.getChildCount()+" onResume");
+//        if (MainActivity.getRoute()==null){
+//            for (int i=0;i<routeList.getChildCount();i++){
+//                routeList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+//            }
+//        }
     }
 
     @Override

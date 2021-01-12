@@ -2,6 +2,7 @@ package com.antonis.bookaguide.tabView;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -62,6 +63,14 @@ public class RoutesFragment extends Fragment {
                     routeSelected= (Routes) routeList.getItemAtPosition(position);
                     Log.d(MainActivity.LOGAPP,routeSelected.toString());
                     MainActivity.setRoute(routeSelected);
+                    //Background color changed for selected item
+                    for (int i=0;i<routeList.getChildCount();i++){
+                        if (position==i){
+                            routeList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
+                        }else{
+                            routeList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                        }
+                    }
                     Toast.makeText(RoutesFragment.this.getContext(),R.string.routeSelection,Toast.LENGTH_LONG).show();
                     }
                 }

@@ -1,6 +1,7 @@
 package com.antonis.bookaguide.tabView;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,13 +60,21 @@ public class CarsFragment extends Fragment {
                     }else{
 //                        Log.d(MainActivity.LOGAPP,transport.toString());
                         if (!transport.getName().equals("On foot")){                                  //no need to add booked dates for on foot guidance
-                            Log.d(MainActivity.LOGAPP,"Name of transport"+transport.getName());
                             transport.addBookedDate(MainActivity.getSelectedDate());
                         }
                         Log.d(MainActivity.LOGAPP,transport.toString());
                         MainActivity.setTransport(transport);
+                        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" onItemClick");
+                        //Background color changed for selected item
+                        for (int i=0;i<transportList.getChildCount();i++){
+                            if (position==i){
+                                transportList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
+                            }else{
+                                transportList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }
                         Toast.makeText(CarsFragment.this.getContext(),R.string.transportSelection,Toast.LENGTH_LONG).show();
-                        MainActivity.getViewPager().setCurrentItem(0);
+//                        MainActivity.getViewPager().setCurrentItem(0);
                     }
                 }
             }
@@ -91,6 +100,13 @@ public class CarsFragment extends Fragment {
         super.onResume();
         transportAdapter=new TransportAdapter(CarsFragment.this.getActivity());
         transportList.setAdapter(transportAdapter);
+
+//        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" onResume");
+//        if (MainActivity.getTransport()==null){
+//            for (int i=0;i<transportList.getChildCount();i++){
+//                transportList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+//            }
+//        }
     }
 
     @Override

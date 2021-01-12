@@ -1,6 +1,7 @@
 package com.antonis.bookaguide.tabView;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +65,16 @@ public class GuidesFragment extends Fragment {
 //                        Log.d(MainActivity.LOGAPP,guideSelected.toString());
                         guideSelected.addBookedDate(MainActivity.getSelectedDate());
                         MainActivity.setGuide(guideSelected);
+                        //Background color changed for selected item
+                        for (int i=0;i<guidesList.getChildCount();i++){
+                            if (position==i){
+                                guidesList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
+                            }else{
+                                guidesList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                            }
+                        }
                         Toast.makeText(GuidesFragment.this.getContext(),R.string.guideSelection,Toast.LENGTH_LONG).show();
-                        MainActivity.getViewPager().setCurrentItem(2);
+//                        MainActivity.getViewPager().setCurrentItem(2);
                     }
                 }
             }

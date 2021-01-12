@@ -69,6 +69,18 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.transport = transport;
     }
 
+    public static Routes getRoute() {
+        return route;
+    }
+
+    public static Guides getGuide() {
+        return guide;
+    }
+
+    public static Transport getTransport() {
+        return transport;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

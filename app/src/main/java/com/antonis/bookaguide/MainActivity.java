@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                         clearSelectedData();
                     }
                 })
-                .setIcon(android.R.drawable.ic_dialog_info)
+                .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
 

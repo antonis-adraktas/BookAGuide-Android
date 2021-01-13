@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             selectedDate=dayOfMonth+"-"+(month+1)+"-"+year;
             selectDateTextView.setText(selectedDate);
+            initializeViewpager();  //this will show immediately the red color on guides/transport in case they are booked for the date
         }
     };
     private class ClickListener implements View.OnClickListener {

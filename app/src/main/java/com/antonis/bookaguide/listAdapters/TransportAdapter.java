@@ -2,6 +2,7 @@ package com.antonis.bookaguide.listAdapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class TransportAdapter extends BaseAdapter {
         @Override
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             notifyDataSetChanged();
+            Log.d(MainActivity.LOGAPP,"child changed in transport db");
         }
 
         @Override
@@ -103,10 +105,11 @@ public class TransportAdapter extends BaseAdapter {
         final Transport transport= getItem(position);
         final TransportAdapter.ViewHolder holder=(TransportAdapter.ViewHolder) convertView.getTag();
         boolean isBooked;
-        if (transport.getDatesBooked()==null){
+        if (transport.getDatesBooked()==null||MainActivity.getSelectedDate()==null){
             isBooked=false;
         }else{
             isBooked=transport.getDatesBooked().contains(MainActivity.getSelectedDate());
+//          Log.d(MainActivity.LOGAPP,"isBooked is "+isBooked+" in position "+position);
         }
 
         setGuideRowAppearance(isBooked,holder);

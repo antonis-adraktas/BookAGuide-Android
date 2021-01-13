@@ -101,12 +101,8 @@ public class CarsFragment extends Fragment {
         transportAdapter=new TransportAdapter(CarsFragment.this.getActivity());
         transportList.setAdapter(transportAdapter);
 
-//        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" onResume");
-//        if (MainActivity.getTransport()==null){
-//            for (int i=0;i<transportList.getChildCount();i++){
-//                transportList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-//            }
-//        }
+        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" onResume");
+//        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,500);
     }
 
     @Override
@@ -129,5 +125,21 @@ public class CarsFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok,null)
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
+    }
+
+    private void updateColorOfSelectedItem() {
+        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" from updateColor function");
+//        if (MainActivity.getTransport() != null) {
+//            for (int i=0;i<transportList.getChildCount();i++){
+//                Transport transportInList= (Transport) transportList.getItemAtPosition(i);
+//                if (MainActivity.getTransport().getName().equals(transportInList.getName())){
+//                    transportList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
+//                }
+//            }
+//        } else {
+//            for (int i = 0; i < transportList.getChildCount(); i++) {
+//                transportList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+//            }
+//        }
     }
 }

@@ -104,10 +104,11 @@ public class GuidesAdapter extends BaseAdapter {
         final Guides guide= getItem(position);
         final ViewHolder holder=(ViewHolder) convertView.getTag();
         boolean isBooked;
-        if (guide.getDatesBooked()==null){
+        if (guide.getDatesBooked()==null||MainActivity.getSelectedDate()==null){
             isBooked=false;
         }else{
             isBooked=guide.getDatesBooked().contains(MainActivity.getSelectedDate());
+//          Log.d(MainActivity.LOGAPP,"isBooked for Guides is "+isBooked+" in position "+position);
         }
 
         setGuideRowAppearance(isBooked,holder);

@@ -2,6 +2,7 @@ package com.antonis.bookaguide;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -150,27 +151,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if (selectedDate!=null && route!=null && transport!=null&& guide!=null){
-                Request request=new Request(auth.getCurrentUser().getEmail(),selectedDate,route,guide,transport);
-                Log.d(LOGAPP,request.toString());
-//              add the booked date in the arraylist of datesbooked for the guide and transport selected
-                Map<String, Object> updateGuide = new HashMap<String,Object>();
-                updateGuide.put("datesBooked",guide.getDatesBooked());
-                databaseReference.child(GuidesAdapter.DBGUIDES).child(guide.getName()).updateChildren(updateGuide);
-
-                if (!transport.getName().equals("On foot")){
-                    Map<String, Object> updateTransport = new HashMap<String,Object>();
-                    updateTransport.put("datesBooked",transport.getDatesBooked());
-                    databaseReference.child(DBTRANSPORT).child(transport.getName()).updateChildren(updateTransport);
-                }
-                //replace dots with underscore in email as firebase doesn't accept '.' in the name field
-                databaseReference.child(DBREQUESTS).child(replaceDotsWithUnderscore(request.getUserEmail())).push().setValue(request);
-                successfulReservationDialog();    //info dialog and reinitialize values for new reservations
-
-            // Log the event in Google analytics
-                Bundle params = new Bundle();
-                params.putString("user_email", auth.getCurrentUser().getEmail());
-                params.putString("Status", "Successful reservation");
-                mFirebaseAnalytics.logEvent("reservation_button", params);
+                reservationConfirmationDialog();    //confirmation dialog and clear selected values after
             }else{
                 Toast.makeText(MainActivity.this.getApplicationContext(),R.string.selectAllFields,Toast.LENGTH_SHORT).show();
                 Bundle params = new Bundle();
@@ -217,11 +198,67 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok,null)
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
+        clearSelectedData();
+    }
+
+    private void reservationConfirmationDialog(){
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage("You have selected a tour for "+selectedDate+" on "+route.getName()+" with guide "+guide.getName()+" and transport: "+transport.getName()
+                +". Do you want to complete this reservation?")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        sendReservation();
+                        successfulReservationDialog();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        clearSelectedData();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .show();
+    }
+
+    private void clearSelectedData(){
         selectedDate=null;
         selectDateTextView.setText(R.string.selectDate);
         route=null;
         guide=null;
         transport=null;
+        initializeViewpager();
+    }
+
+    private void sendReservation(){
+        Request request=new Request(auth.getCurrentUser().getEmail(),selectedDate,route,guide,transport);
+        Log.d(LOGAPP,request.toString());
+//              add the booked date in the arraylist of datesbooked for the guide and transport selected
+        Map<String, Object> updateGuide = new HashMap<String,Object>();
+        updateGuide.put("datesBooked",guide.getDatesBooked());
+        databaseReference.child(GuidesAdapter.DBGUIDES).child(guide.getName()).updateChildren(updateGuide);
+
+        if (!transport.getName().equals("On foot")){                          //don't update datesbooked for onFoot since it has unlimited Capacity
+            Map<String, Object> updateTransport = new HashMap<String,Object>();
+            updateTransport.put("datesBooked",transport.getDatesBooked());
+            databaseReference.child(DBTRANSPORT).child(transport.getName()).updateChildren(updateTransport);
+        }
+        //replace dots with underscore in email as firebase doesn't accept '.' in the name field
+        databaseReference.child(DBREQUESTS).child(replaceDotsWithUnderscore(request.getUserEmail())).push().setValue(request);
+
+        // Log the event in Google analytics
+        Bundle params = new Bundle();
+        params.putString("user_email", auth.getCurrentUser().getEmail());
+        params.putString("Status", "Successful reservation");
+        mFirebaseAnalytics.logEvent("reservation_button", params);
+    }
+
+    private void initializeViewpager(){
+        int tabPosition=viewPager.getCurrentItem();
+        PageAdapter pageAdapter=new PageAdapter(this);
+        viewPager.setAdapter(pageAdapter);
+        viewPager.setCurrentItem(tabPosition);
     }
 
 

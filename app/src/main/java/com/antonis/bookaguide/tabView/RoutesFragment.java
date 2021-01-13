@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,13 +111,8 @@ public class RoutesFragment extends Fragment {
         super.onResume();
         routeAdapter=new RoutesAdapter(RoutesFragment.this.getActivity());
         routeList.setAdapter(routeAdapter);
+        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,10);  // update the color after 10 millis to give time for the routes list to be populated
 
-//        Log.d(MainActivity.LOGAPP,"Number of items in list "+routeList.getChildCount()+" onResume");
-//        if (MainActivity.getRoute()==null){
-//            for (int i=0;i<routeList.getChildCount();i++){
-//                routeList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-//            }
-//        }
     }
 
     @Override
@@ -129,6 +126,22 @@ public class RoutesFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok,null)
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
+    }
+
+    private void updateColorOfSelectedItem() {
+        Log.d(MainActivity.LOGAPP,"Number of items in  routes list "+routeList.getChildCount()+" from updateColor function");
+        if (MainActivity.getRoute() != null) {
+            for (int i=0;i<routeList.getChildCount();i++){
+                Routes routeInList= (Routes) routeList.getItemAtPosition(i);
+                if (MainActivity.getRoute().getName().equals(routeInList.getName())){
+                    routeList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
+                }
+            }
+        } else {
+            for (int i = 0; i < routeList.getChildCount(); i++) {
+                routeList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
     }
 
 }

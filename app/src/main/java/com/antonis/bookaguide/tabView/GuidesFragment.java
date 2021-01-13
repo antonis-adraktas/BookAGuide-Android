@@ -3,6 +3,9 @@ package com.antonis.bookaguide.tabView;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,12 +105,8 @@ public class GuidesFragment extends Fragment {
         guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity());
         guidesList.setAdapter(guidesAdapter);
 
-//        Log.d(MainActivity.LOGAPP,"Number of items in list "+guidesList.getChildCount()+" onResume");
-//        if (MainActivity.getGuide()==null){
-//            for (int i=0;i<guidesList.getChildCount();i++){
-//                guidesList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-//            }
-//        }
+        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,10);  // update the color after 10 millis to give time for the guides list to be populated
+
     }
 
     @Override
@@ -130,5 +129,21 @@ public class GuidesFragment extends Fragment {
                 .setPositiveButton(android.R.string.ok,null)
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .show();
+    }
+
+    private void updateColorOfSelectedItem() {
+        Log.d(MainActivity.LOGAPP,"Number of items in  guides list "+guidesList.getChildCount()+" from updateColor function");
+        if (MainActivity.getGuide() != null) {
+            for (int i=0;i<guidesList.getChildCount();i++){
+                Guides guideInList= (Guides) guidesList.getItemAtPosition(i);
+                if (MainActivity.getGuide().getName().equals(guideInList.getName())){
+                    guidesList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
+                }
+            }
+        } else {
+            for (int i = 0; i < guidesList.getChildCount(); i++) {
+                guidesList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
     }
 }

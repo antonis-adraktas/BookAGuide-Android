@@ -3,6 +3,8 @@ package com.antonis.bookaguide.tabView;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,8 +103,8 @@ public class CarsFragment extends Fragment {
         transportAdapter=new TransportAdapter(CarsFragment.this.getActivity());
         transportList.setAdapter(transportAdapter);
 
-        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" onResume");
-//        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,500);
+//        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" onResume");
+        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,10);  // update the color after 10 millis to give time for the transportlist to be populated
     }
 
     @Override
@@ -128,18 +130,18 @@ public class CarsFragment extends Fragment {
     }
 
     private void updateColorOfSelectedItem() {
-        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" from updateColor function");
-//        if (MainActivity.getTransport() != null) {
-//            for (int i=0;i<transportList.getChildCount();i++){
-//                Transport transportInList= (Transport) transportList.getItemAtPosition(i);
-//                if (MainActivity.getTransport().getName().equals(transportInList.getName())){
-//                    transportList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
-//                }
-//            }
-//        } else {
-//            for (int i = 0; i < transportList.getChildCount(); i++) {
-//                transportList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-//            }
-//        }
+        Log.d(MainActivity.LOGAPP,"Number of items in  transport list "+transportList.getChildCount()+" from updateColor function");
+        if (MainActivity.getTransport() != null) {
+            for (int i=0;i<transportList.getChildCount();i++){
+                Transport transportInList= (Transport) transportList.getItemAtPosition(i);
+                if (MainActivity.getTransport().getName().equals(transportInList.getName())){
+                    transportList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
+                }
+            }
+        } else {
+            for (int i = 0; i < transportList.getChildCount(); i++) {
+                transportList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
     }
 }

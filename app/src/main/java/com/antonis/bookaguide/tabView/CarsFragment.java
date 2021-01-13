@@ -104,7 +104,7 @@ public class CarsFragment extends Fragment {
         transportList.setAdapter(transportAdapter);
 
 //        Log.d(MainActivity.LOGAPP,"Number of items in list "+transportList.getChildCount()+" onResume");
-        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,10);  // update the color after 10 millis to give time for the transportlist to be populated
+        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,20);  // update the color after 10 millis to give time for the transportlist to be populated
     }
 
     @Override

@@ -105,7 +105,7 @@ public class GuidesFragment extends Fragment {
         guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity());
         guidesList.setAdapter(guidesAdapter);
 
-        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,10);  // update the color after 10 millis to give time for the guides list to be populated
+        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,20);  // update the color after 10 millis to give time for the guides list to be populated
 
     }
 

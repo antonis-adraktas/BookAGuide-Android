@@ -111,7 +111,7 @@ public class RoutesFragment extends Fragment {
         super.onResume();
         routeAdapter=new RoutesAdapter(RoutesFragment.this.getActivity());
         routeList.setAdapter(routeAdapter);
-        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,10);  // update the color after 10 millis to give time for the routes list to be populated
+        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,20);  // update the color after 10 millis to give time for the routes list to be populated
 
     }
 

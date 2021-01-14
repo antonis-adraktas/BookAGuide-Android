@@ -125,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if (selectedDate != null) {
+            selectDateTextView.setText(selectedDate);           //update textView when coming from a different activity (custom route)
+        }
+
 //        sendGuides();
 //        sendTransports();
 //        sendRoutes();
@@ -165,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle params = new Bundle();
                 params.putString("user_email", auth.getCurrentUser().getEmail());
                 params.putString("Status", "Data missing, reservation not send");
-                mFirebaseAnalytics.logEvent("reservation_button", params);
+                mFirebaseAnalytics.logEvent("reservation_not_completed", params);
             }
         }
     }
@@ -226,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
                         Bundle params = new Bundle();
                         params.putString("user_email", auth.getCurrentUser().getEmail());
                         params.putString("Status", "Reservation not sent by user");
-                        mFirebaseAnalytics.logEvent("reservation_button", params);
+                        mFirebaseAnalytics.logEvent("reservation_not_completed", params);
                         clearSelectedData();
                     }
                 })
@@ -261,9 +266,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Log the event in Google analytics
         Bundle params = new Bundle();
-        params.putString("user_email", auth.getCurrentUser().getEmail());
-        params.putString("Status", "Successful reservation");
-        mFirebaseAnalytics.logEvent("reservation_button", params);
+        params.putString("completed_reservation_email", auth.getCurrentUser().getEmail());
+        mFirebaseAnalytics.logEvent("reservation_completed",params);
     }
 
     private void initializeViewpager(){

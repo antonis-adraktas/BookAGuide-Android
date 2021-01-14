@@ -254,6 +254,12 @@ public class CustomRouteMap extends AppCompatActivity
         if (locationManager!=null) locationManager.removeUpdates(locationListener);
         Log.d(MainActivity.LOGAPP,"locationlistener remove updates when onPause");
     }
+    public void onBackPressed() {
+        Intent intent=new Intent(CustomRouteMap.this,MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
 
 }
 

@@ -62,4 +62,10 @@ public class MyRequests extends AppCompatActivity {
         super.onStop();
         requestAdapter.cleanup();
     }
+
+    public void onBackPressed() {
+        Intent intent=new Intent(MyRequests.this,MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
 }

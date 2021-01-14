@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 
@@ -44,6 +45,7 @@ public class CustomRouteMap extends AppCompatActivity
     private Location myLocation;
     LocationListener locationListener;
     public static Routes customRoute;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     // [START_EXCLUDE]
@@ -53,6 +55,7 @@ public class CustomRouteMap extends AppCompatActivity
         super.onCreate(savedInstanceState);
         // Retrieve the content view that renders the map.
         setContentView(R.layout.map_layout);
+        mFirebaseAnalytics=FirebaseAnalytics.getInstance(this);
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -105,6 +108,9 @@ public class CustomRouteMap extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 provideInfo(CustomRouteMap.this.getString(R.string.provideInfoMap),googleMap);
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "custom_route_info");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
         });
         LatLngBounds atticaBounds = new LatLngBounds(
@@ -198,11 +204,17 @@ public class CustomRouteMap extends AppCompatActivity
     }
 
     private void finishAction(){
-        customRoute=new Routes("Custom Route",false,new com.antonis.bookaguide.data.LatLng(markerList.get(0).getPosition().latitude,markerList.get(0).getPosition().longitude),
-                new com.antonis.bookaguide.data.LatLng(markerList.get(markerList.size()-1).getPosition().latitude,markerList.get(markerList.size()-1).getPosition().longitude),markerList.size());
-        customRoute.setPointsToVisit(markerToMyMarker(markerList));
-        Log.d(MainActivity.LOGAPP,"New custom route created "+customRoute.toString());
-        MainActivity.setRoute(customRoute);
+        if (!markerList.isEmpty()){
+            Log.d(MainActivity.LOGAPP,"create custom route");
+            customRoute=new Routes("Custom Route",false,new com.antonis.bookaguide.data.LatLng(markerList.get(0).getPosition().latitude,markerList.get(0).getPosition().longitude),
+                    new com.antonis.bookaguide.data.LatLng(markerList.get(markerList.size()-1).getPosition().latitude,markerList.get(markerList.size()-1).getPosition().longitude),markerList.size());
+            customRoute.setPointsToVisit(markerToMyMarker(markerList));
+            Log.d(MainActivity.LOGAPP,"New custom route created "+customRoute.toString());
+            MainActivity.setRoute(customRoute);
+            Bundle params = new Bundle();
+            params.putString("user_email_customMap", MainActivity.auth.getCurrentUser().getEmail());
+            mFirebaseAnalytics.logEvent("custom_route_created", params);
+        }
         Intent intent=new Intent(CustomRouteMap.this,MainActivity.class);
         startActivity(intent);
     }
@@ -226,6 +238,9 @@ public class CustomRouteMap extends AppCompatActivity
                         map.clear();
                         numMarker=0;
                         markerList.clear();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "custom_route_cleared");
+                        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                     }
                 })
                 .setIcon(android.R.drawable.ic_dialog_info)

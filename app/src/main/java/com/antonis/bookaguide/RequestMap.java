@@ -31,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,12 +45,14 @@ public class RequestMap extends AppCompatActivity
     LocationListener locationListener;
     private Request myRequest;
     ArrayList<MyMarker> markerList;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Retrieve the content view that renders the map.
         setContentView(R.layout.my_map_layout);
+        mFirebaseAnalytics=FirebaseAnalytics.getInstance(this);
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -101,6 +104,9 @@ public class RequestMap extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 provideInfo(RequestMap.this.getString(R.string.myRequestInfo));
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "my_trip_map_info_button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
         });
         LatLngBounds atticaBounds = new LatLngBounds(
@@ -162,6 +168,9 @@ public class RequestMap extends AppCompatActivity
             Log.d(MainActivity.LOGAPP,"distance between my location and marker "+marker.getTitle()+" is "+String.valueOf(distance[0]));
             if (distance[0]<100){
                 showAlertDialogWithAutoDismiss("Next stop: \n"+marker.getTitle());
+                Bundle params = new Bundle();
+                params.putString("user_email_alert_near", MainActivity.auth.getCurrentUser().getEmail());
+                mFirebaseAnalytics.logEvent("marker_near_alert", params);
                 itr.remove();
             }
         }

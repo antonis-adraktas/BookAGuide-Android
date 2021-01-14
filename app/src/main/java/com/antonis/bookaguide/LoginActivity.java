@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent=new Intent(LoginActivity.this,MainActivity.class);
 //                    Log.d(MainActivity.LOGAPP,auth.getCurrentUser().getUid()+"\n"+auth.getCurrentUser().getEmail());
                     Bundle bundle = new Bundle();
-                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, auth.getCurrentUser().getEmail());
+                    bundle.putString(FirebaseAnalytics.Param.AD_UNIT_NAME, auth.getCurrentUser().getEmail());
                     bundle.putString(FirebaseAnalytics.Param.METHOD, "Email/Password");
                     Log.d(LOGAPP,bundle.toString());
                     mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);

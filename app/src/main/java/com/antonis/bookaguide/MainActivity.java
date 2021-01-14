@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String DBROUTES="Routes";
     public static final String DBREQUESTS="Requests";
     private TextView selectDateTextView;
-    private static FirebaseAuth auth;
+    public static FirebaseAuth auth;
     private static Routes route;
     private static Guides guide;
     private static Transport transport;
@@ -117,6 +117,9 @@ public class MainActivity extends AppCompatActivity {
         myTrips.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "My_trips");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 Intent intent = new Intent(MainActivity.this,MyRequests.class);
                 finish();
                 startActivity(intent);
@@ -136,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
             c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             selectedDate=dayOfMonth+"-"+(month+1)+"-"+year;
             selectDateTextView.setText(selectedDate);
+            Bundle bundle = new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "select_date");
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             initializeViewpager();  //this will show immediately the red color on guides/transport in case they are booked for the date
         }
     };
@@ -155,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 reservationConfirmationDialog();    //confirmation dialog and clear selected values after
             }else{
                 Toast.makeText(MainActivity.this.getApplicationContext(),R.string.selectAllFields,Toast.LENGTH_SHORT).show();
+                //send google analytics event
                 Bundle params = new Bundle();
                 params.putString("user_email", auth.getCurrentUser().getEmail());
                 params.putString("Status", "Data missing, reservation not send");
@@ -216,6 +223,10 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Bundle params = new Bundle();
+                        params.putString("user_email", auth.getCurrentUser().getEmail());
+                        params.putString("Status", "Reservation not sent by user");
+                        mFirebaseAnalytics.logEvent("reservation_button", params);
                         clearSelectedData();
                     }
                 })

@@ -135,8 +135,8 @@ public class CustomRouteMap extends AppCompatActivity
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
-                Toast.makeText(CustomRouteMap.this, "MyLocation button clicked", Toast.LENGTH_SHORT)
-                        .show();
+//                Toast.makeText(CustomRouteMap.this, "MyLocation button clicked", Toast.LENGTH_SHORT)
+//                        .show();
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                         new LatLng(myLocation.getLatitude(),
                                 myLocation.getLongitude()), 14));
@@ -144,7 +144,7 @@ public class CustomRouteMap extends AppCompatActivity
             }
         });
 
-        Log.d(MainActivity.LOGAPP,"My location is "+googleMap.isMyLocationEnabled());
+        Log.d(MainActivity.LOGAPP,"My location is enabled: "+googleMap.isMyLocationEnabled());
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

@@ -34,5 +34,7 @@
     <string name="reservationCompleted">You have successfully completed your reservation. Click ok to continue navigating in the app.</string>
     <string name="myRequestInfo">Here you can see the places to be visited in your trip. As you are getting closer to a location a popup will provide more info</string>
     <string name="cannotSelectPastDates">You cannot select past dates. Please select a date in future for your reservation</string>
+<!--    <string name="welcome">Welcome to BookAGuide!</string>-->
+<!--    <string name="description">This is a reservation service for custom guided tours in Athens region. Select your route, guide and transport and you are set to go!</string>-->
 
 </resources>

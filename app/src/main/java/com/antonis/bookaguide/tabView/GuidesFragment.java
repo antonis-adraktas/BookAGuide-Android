@@ -105,8 +105,24 @@ public class GuidesFragment extends Fragment {
         guidesAdapter=new GuidesAdapter(GuidesFragment.this.getActivity());
         guidesList.setAdapter(guidesAdapter);
 
-        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,20);  // update the color after 10 millis to give time for the guides list to be populated
+        new Handler(Looper.getMainLooper()).postDelayed(this::updateColorOfSelectedItem,20);  // update the color after 20 millis to give time for the guides list to be populated
 
+    }
+
+    private void updateColorOfSelectedItem() {
+        Log.d(MainActivity.LOGAPP,"Number of items in  guides list "+guidesList.getChildCount()+" from updateColor function");
+        if (MainActivity.getGuide() != null) {
+            for (int i=0;i<guidesList.getChildCount();i++){
+                Guides guideInList= (Guides) guidesList.getItemAtPosition(i);
+                if (MainActivity.getGuide().getName().equals(guideInList.getName())){
+                    guidesList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
+                }
+            }
+        } else {
+            for (int i = 0; i < guidesList.getChildCount(); i++) {
+                guidesList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+            }
+        }
     }
 
     @Override
@@ -131,19 +147,5 @@ public class GuidesFragment extends Fragment {
                 .show();
     }
 
-    private void updateColorOfSelectedItem() {
-        Log.d(MainActivity.LOGAPP,"Number of items in  guides list "+guidesList.getChildCount()+" from updateColor function");
-        if (MainActivity.getGuide() != null) {
-            for (int i=0;i<guidesList.getChildCount();i++){
-                Guides guideInList= (Guides) guidesList.getItemAtPosition(i);
-                if (MainActivity.getGuide().getName().equals(guideInList.getName())){
-                    guidesList.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.purple_200));
-                }
-            }
-        } else {
-            for (int i = 0; i < guidesList.getChildCount(); i++) {
-                guidesList.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-            }
-        }
-    }
+
 }

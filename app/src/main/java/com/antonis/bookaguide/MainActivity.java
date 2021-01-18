@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeViewpager(){
-        //this function will reinitialize viewpager. This will help clearing text fill colors in the tab user is seeing immediately when selected data is cleared
+        //this function will reinitialize viewpager. This will help clearing text fill colors in the tab user is seeing immediately when selected data is cleared or when new date is set.
         int tabPosition=viewPager.getCurrentItem();
         PageAdapter pageAdapter=new PageAdapter(this);
         viewPager.setAdapter(pageAdapter);

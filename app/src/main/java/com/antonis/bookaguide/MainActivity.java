@@ -130,6 +130,40 @@ public class MainActivity extends AppCompatActivity {
             selectDateTextView.setText(selectedDate);           //update textView when coming from a different activity (custom route)
         }
 
+        ViewPager2.OnPageChangeCallback tabChange=new ViewPager2.OnPageChangeCallback() {
+
+            @Override
+            public void onPageSelected(int position) {
+//                Log.d(LOGAPP,"onPageSelected called");
+                switch (position){
+                    case 0:
+                        Bundle bundle = new Bundle();
+                        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "Routes");
+                        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
+                        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+                        Log.d(LOGAPP,"Routes screen logged");
+                        break;
+                    case 1:
+                        bundle = new Bundle();
+                        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "Guides");
+                        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
+                        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+                        Log.d(LOGAPP,"Guides screen logged");
+                        break;
+                    case 2:
+                        bundle = new Bundle();
+                        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, "Transport");
+                        bundle.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
+                        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle);
+                        Log.d(LOGAPP,"Transport screen logged");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        viewPager.registerOnPageChangeCallback(tabChange);
+
 //        sendGuides();
 //        sendTransports();
 //        sendRoutes();
@@ -267,6 +301,11 @@ public class MainActivity extends AppCompatActivity {
         // Log the event in Google analytics
         Bundle params = new Bundle();
         params.putString("completed_reservation_email", auth.getCurrentUser().getEmail());
+        if (route.getName().equals("Custom Route")){
+            params.putString("route_type","Custom");
+        }else{
+            params.putString("route_type","Predefined");
+        }
         mFirebaseAnalytics.logEvent("reservation_completed",params);
     }
 
@@ -277,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(pageAdapter);
         viewPager.setCurrentItem(tabPosition);
     }
+
 
 
 //    public static void sendGuides(){

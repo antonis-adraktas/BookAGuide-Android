@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -34,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     // Firebase instance variables
     private FirebaseAuth auth;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     @Override
@@ -45,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.register_password);
         mConfirmPasswordView = (EditText) findViewById(R.id.register_confirm_password);
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.register_username);
+        mFirebaseAnalytics=FirebaseAnalytics.getInstance(this);
 
         // Keyboard sign in action
         mConfirmPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -129,6 +132,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.d(LOGAPP,"user creation failed!");
                     showErrorDialog("Registration attempt failed");
                 } else{
+                    //Log google analytics registration event
+                    Bundle params = new Bundle();
+                    params.putString("registration_user_email", auth.getCurrentUser().getEmail());
+                    mFirebaseAnalytics.logEvent("User_registration_completed", params);
                     Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
                     finish();
                     startActivity(intent);

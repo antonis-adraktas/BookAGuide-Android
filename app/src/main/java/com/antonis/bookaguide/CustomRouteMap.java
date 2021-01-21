@@ -90,6 +90,12 @@ public class CustomRouteMap extends AppCompatActivity
                map.getUiSettings().setMyLocationButtonEnabled(true);
                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                myLocation=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (myLocation==null){
+                    myLocation=locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (myLocation==null){
+                        Toast.makeText(CustomRouteMap.this,"myLocation is still null, couldn't retrieve last known location from GPS or Network provider",Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
@@ -143,9 +149,14 @@ public class CustomRouteMap extends AppCompatActivity
             public boolean onMyLocationButtonClick() {
 //                Toast.makeText(CustomRouteMap.this, "MyLocation button clicked", Toast.LENGTH_SHORT)
 //                        .show();
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                        new LatLng(myLocation.getLatitude(),
-                                myLocation.getLongitude()), 14));
+                if (myLocation!=null){
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                            new LatLng(myLocation.getLatitude(),
+                                    myLocation.getLongitude()), 14));
+                }else{
+                    Toast.makeText(CustomRouteMap.this,"Cannot retrieve my location",Toast.LENGTH_SHORT).show();
+                }
+
                 return false;
             }
         });

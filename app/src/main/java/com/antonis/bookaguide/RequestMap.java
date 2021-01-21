@@ -69,6 +69,12 @@ public class RequestMap extends AppCompatActivity
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
     private void enableMyLocation(GoogleMap map) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -83,14 +89,19 @@ public class RequestMap extends AppCompatActivity
                         Toast.makeText(RequestMap.this,"myLocation is still null, couldn't retrieve last known location from GPS or Network provider",Toast.LENGTH_SHORT).show();
                     }
                 }
-                locationListener= new LocationListener() {
-                    @Override
-                    public void onLocationChanged(@NonNull Location location) {
-                        myLocation=location;
-                        showAlertWhenMarkerIsNear(location,markerList);
-                    }
-                };
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,20,locationListener);
+                if (myLocation!=null){
+                    locationListener= new LocationListener() {
+                        @Override
+                        public void onLocationChanged(@NonNull Location location) {
+                            myLocation=location;
+                            showAlertWhenMarkerIsNear(location,markerList);
+                        }
+                    };
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,10000,20,locationListener);
+                }else{
+                    Toast.makeText(RequestMap.this,"Location data is missing",Toast.LENGTH_SHORT).show();
+                }
+
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
@@ -109,6 +120,8 @@ public class RequestMap extends AppCompatActivity
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
         });
+
+
         LatLngBounds atticaBounds = new LatLngBounds(
                 new LatLng(37.882943, 23.657002), // SW bounds
                 new LatLng(38.036468, 23.904720)  // NE bounds
@@ -135,10 +148,14 @@ public class RequestMap extends AppCompatActivity
         googleMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
             @Override
             public boolean onMyLocationButtonClick() {
+                if (myLocation!=null){
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                             new LatLng(myLocation.getLatitude(),
                                     myLocation.getLongitude()), 16));
                     showAlertWhenMarkerIsNear(myLocation,markerList);
+                }else{
+                    Toast.makeText(RequestMap.this,"Cannot retrieve my location",Toast.LENGTH_SHORT).show();
+                }
                     return false;
             }
         });
@@ -202,7 +219,7 @@ public class RequestMap extends AppCompatActivity
     protected void onPause() {
         super.onPause();
 
-        if (locationManager!=null) locationManager.removeUpdates(locationListener);
+        if (locationManager!=null &&myLocation!=null) locationManager.removeUpdates(locationListener);
         Log.d(MainActivity.LOGAPP,"locationlistener remove updates when onPause");
     }
 

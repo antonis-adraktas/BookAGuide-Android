@@ -64,8 +64,7 @@ public class RequestMap extends AppCompatActivity
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
             return;
         }
-        myRequest=MyRequests.getRequestSelected();
-        markerList=myRequest.getRoute().getPointsToVisit();
+
 
     }
 
@@ -120,6 +119,8 @@ public class RequestMap extends AppCompatActivity
                 mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
             }
         });
+        myRequest=MyRequests.getRequestSelected();
+        markerList=myRequest.getRoute().getPointsToVisit();
 
 
         LatLngBounds atticaBounds = new LatLngBounds(
